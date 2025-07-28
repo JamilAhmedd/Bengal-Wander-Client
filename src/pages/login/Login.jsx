@@ -2,9 +2,16 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { motion } from "motion/react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import useAuth from "../../AuthProvider/useAuth";
+import getJWT from "../../components/hooks/getJWT";
+import SocialLogin from "../socialLogin/SocialLogin";
 
 const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from || "/";
+  const { logIn } = useAuth();
   const {
     register,
     handleSubmit,
@@ -12,38 +19,41 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    if (data.email === "user@example.com" && data.password === "password123") {
-      Swal.fire({
-        icon: "success",
-        title: "Login Successful!",
-        text: "Redirecting to your next adventure...",
-        timer: 2000,
-        timerProgressBar: true,
-        showConfirmButton: false,
-        background: "#fff",
-        color: "#333",
-        customClass: {
-          popup: "rounded-xl shadow-lg",
-          title: "text-gray-900 dark:text-gray-800",
-          content: "text-gray-700 dark:text-gray-600",
-        },
-      }).then(() => {
-        // window.location.href = '/dashboard';
+    logIn(data.email, data.password)
+      .then(async (res) => {
+        await getJWT(res.user.email);
+        navigate(from, { replace: true });
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful!",
+          text: "Redirecting to your next adventure...",
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+          background: "#fff",
+          color: "#333",
+          customClass: {
+            popup: "rounded-xl shadow-lg",
+            title: "text-gray-900 dark:text-gray-800",
+            content: "text-gray-700 dark:text-gray-600",
+          },
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: "Invalid email or password. Please try again.",
+          background: "#fff",
+          color: "#333",
+          customClass: {
+            popup: "rounded-xl shadow-lg",
+            title: "text-gray-900 dark:text-gray-800",
+            content: "text-gray-700 dark:text-gray-600",
+          },
+        });
+        console.error("Login error:", error); // optional
       });
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Login Failed",
-        text: "Invalid email or password. Please try again.",
-        background: "#fff",
-        color: "#333",
-        customClass: {
-          popup: "rounded-xl shadow-lg",
-          title: "text-gray-900 dark:text-gray-800",
-          content: "text-gray-700 dark:text-gray-600",
-        },
-      });
-    }
   };
 
   return (
@@ -129,7 +139,9 @@ const Login = () => {
           Login
         </button>
       </form>
-
+      <Link className="text-red-500 mt-2" to={"/auth/forgot-password"}>
+        Forgot Password?
+      </Link>
       {/* Link to Registration Page */}
       <p className="mt-6 text-center text-gray-600 dark:text-gray-400 text-sm">
         New to Bengal-Wander?{" "}
@@ -140,6 +152,7 @@ const Login = () => {
           Register for an adventure!
         </Link>
       </p>
+      <SocialLogin></SocialLogin>
     </motion.div>
   );
 };

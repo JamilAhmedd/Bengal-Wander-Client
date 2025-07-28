@@ -5,11 +5,13 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
@@ -26,15 +28,48 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
-  const userUpdate = (updatedProfile) => {
-    updateProfile(auth.currentUser, updatedProfile)
+  const userUpdate = (userToUpdate, updatedProfile) => {
+    if (!userToUpdate) {
+      return Promise.reject(new Error("No user object provided for update."));
+    }
+    return updateProfile(userToUpdate, updatedProfile)
       .then(() => {})
       .catch((error) => {
-        console.log(error);
+        console.error("Error updating profile:", error);
+        throw error;
+      });
+  };
+
+  const forgotPassword = (email) => {
+    return sendPasswordResetEmail(auth, email)
+      .then(() => {
+        console.log("email sent");
+        // Password reset email sent!
+        // ..
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
       });
   };
   const logOut = () => {
-    return signOut(auth);
+    return signOut(auth).then(() => {
+      Swal.fire({
+        icon: "success",
+        title: "Logged out successfully",
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        background: "#fff",
+        color: "#333",
+        customClass: {
+          popup: "rounded-xl shadow-lg",
+        },
+      });
+    });
   };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -50,6 +85,7 @@ const AuthProvider = ({ children }) => {
   }, []);
   const authInfo = {
     createAccount,
+    forgotPassword,
     logIn,
     logOut,
     signInWithGoogle,
@@ -58,7 +94,9 @@ const AuthProvider = ({ children }) => {
     user,
   };
 
-  return <AuthContext value={authInfo}>{children}</AuthContext>;
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

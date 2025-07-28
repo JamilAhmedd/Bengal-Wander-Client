@@ -8,6 +8,7 @@ import Dashboard from "../layouts/Dashboard";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
+import ForgotPassword from "../components/ForgotPassword/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
+      },
+      {
+        path: "forgot-password",
+        Component: ForgotPassword,
       },
     ],
   },

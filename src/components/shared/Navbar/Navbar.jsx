@@ -5,10 +5,10 @@ import useAuth from "../../../AuthProvider/useAuth";
 import Profile from "../Profile/Profile";
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user,logOUt } = useAuth();
   const handleLogout = () => {
     console.log("Logged out");
-    // navigate("/login");
+ 
   };
 
   const navItems = (

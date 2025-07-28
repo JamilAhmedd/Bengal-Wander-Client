@@ -2,14 +2,21 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { motion } from "motion/react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../AuthProvider/useAuth";
 import useAxiosPublic from "../../components/hooks/useAxiosPublic";
+import getJWT from "../../components/hooks/getJWT";
+import SocialLogin from "../socialLogin/SocialLogin";
 
 const Register = () => {
+  const location = useLocation();
+  const from = location.state?.from || "/";
   const axiosPublic = useAxiosPublic();
   const [profile, setProfile] = useState("");
   const { createAccount, userUpdate } = useAuth();
+  const navigate = useNavigate();
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -17,12 +24,23 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    createAccount(data.email, data.password).then((res) => {
+    createAccount(data.email, data.password).then(async (res) => {
+      const userInfo = {
+        email: data.email,
+        name: data.name,
+        photoURL: profile,
+      };
+      axiosPublic.post("/users", userInfo);
+      const userToUpdate = res.user;
       const updatedProfile = {
         displayName: data.name,
         photoURL: profile,
       };
-      userUpdate(updatedProfile);
+      await userUpdate(userToUpdate, updatedProfile).then((res) => {
+        console.log(res);
+      });
+      navigate(from, { replace: true });
+      await getJWT(res.user.email);
       Swal.fire({
         icon: "success",
         title: "Registration Successful!",
@@ -43,16 +61,41 @@ const Register = () => {
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
+    if (!file) return;
+
+    setIsUploadingImage(true); // Indicate that an upload is in progress
     const formData = new FormData();
     formData.append("image", file);
-    const res = await axiosPublic.post(
-      `https://api.imgbb.com/1/upload?expiration=600&key=${
-        import.meta.env.VITE_imgbb_key
-      }`,
-      formData
-    );
-    setProfile(res.data.data.url);
+
+    try {
+      const res = await axiosPublic.post(
+        `https://api.imgbb.com/1/upload?expiration=600&key=${
+          import.meta.env.VITE_imgbb_key
+        }`,
+        formData
+      );
+      setProfile(res.data.data.url);
+      Swal.fire({
+        icon: "success",
+        title: "Image Uploaded!",
+        text: "Your profile picture is ready.",
+        timer: 1500,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Image Upload Failed",
+        text: "Could not upload profile picture. Please try again.",
+      });
+      setProfile(""); // Clear profile URL if upload fails
+    } finally {
+      setIsUploadingImage(false); // Reset uploading state
+    }
   };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -165,12 +208,14 @@ const Register = () => {
 
         {/* Submit */}
         <button
+          disabled={isUploadingImage}
           type="submit"
           className="w-full cursor-pointer py-3 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold rounded-lg shadow-lg transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-400 focus:ring-opacity-75 transition duration-300 ease-in-out"
         >
           Register
         </button>
       </form>
+      <SocialLogin></SocialLogin>
 
       {/* Link to Login */}
       <p className="mt-6 text-center text-gray-600 dark:text-gray-400 text-sm">

@@ -1,16 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import useAuth from "../../../AuthProvider/useAuth";
 
 const Profile = () => {
-     const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { logOut } = useAuth();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
   const { user } = useAuth();
   const handleLogout = () => {
-    console.log("Logged out");
-    // navigate("/login");
+    logOut()
+      .then(() => {
+        localStorage.removeItem("access-token");
+        navigate("/auth/login");
+      })
+      .catch((error) => {
+        console.error("Logout error:", error);
+      });
   };
 
   useEffect(() => {
@@ -35,6 +42,7 @@ const Profile = () => {
             className="object-cover w-full h-full"
             src={user.photoURL}
             alt="User"
+            referrerPolicy="no-referrer"
           />
         </div>
       </button>
@@ -42,7 +50,9 @@ const Profile = () => {
       {dropdownOpen && (
         <ul className="absolute right-0 mt-8 z-[100] p-2 w-60 border border-gray-400/30 bg-white/60 backdrop-blur-sm rounded-box ">
           <li className="px-3 py-2 border-b">
-            <p className="text-sm font-semibold text-gray-500">{user.name}</p>
+            <p className="text-sm font-semibold text-gray-500">
+              {user.displayName}
+            </p>
             <p className="text-xs text-gray-500">{user.email}</p>
           </li>
           <li className="mt-4">
