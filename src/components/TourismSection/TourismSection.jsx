@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Tabs, TabList, Tab, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css"; // Default styles for react-tabs
+import "react-tabs/style/react-tabs.css";
 
-// Helper function to shuffle an array for random selection
+// Helper function to shuffle an array
 const shuffleArray = (array) => {
-  const shuffled = [...array]; // Create a shallow copy to avoid modifying the original array
+  const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
@@ -12,7 +12,6 @@ const shuffleArray = (array) => {
   return shuffled;
 };
 
-// --- Demo Data ---
 const demoPackages = [
   {
     id: "pkg1",
@@ -149,55 +148,61 @@ const TourismSection = () => {
   const [randomPackages, setRandomPackages] = useState([]);
   const [randomGuides, setRandomGuides] = useState([]);
 
-  // Effect to shuffle data on component mount (simulating "every visit")
   useEffect(() => {
     setRandomPackages(shuffleArray(demoPackages).slice(0, 3));
     setRandomGuides(shuffleArray(demoTourGuides).slice(0, 6));
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []);
 
-  // Function to simulate navigation to a detail page
   const handleViewDetails = (type, id) => {
     console.log(`Navigating to ${type} details page for ID: ${id}`);
-    // In a real application, you would use React Router or similar:
-    // history.push(`/${type}-details/${id}`);
-    alert(`Simulating navigation to ${type} details for ID: ${id}`); // Using alert for demo
+    alert(`Simulating navigation to ${type} details for ID: ${id}`);
   };
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-12">
-          Explore Bangladesh
+    <section className="py-12  mt-24   font-poppins">
+      <div className="container  mx-auto">
+        <h2 className="text-5xl font-extrabold text-center text-gray-800 mb-12 ">
+          Discover Bangladesh
         </h2>
 
-        <Tabs className="rounded-lg shadow-xl overflow-hidden bg-white">
-          <TabList className="flex border-b border-gray-200 bg-gray-100">
-            <Tab className="flex-1 text-center py-4 px-6 cursor-pointer text-lg font-semibold text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200 focus:outline-none ui-selected:border-b-4 ui-selected:border-blue-600 ui-selected:text-blue-800 ui-selected:font-bold">
-              Our Packages
+        <Tabs
+          selectedTabClassName="bg-green-300/60"
+          className="rounded-xl  border border-gray-400/30  bg-white"
+        >
+          <TabList className="flex p-[2px] rounded-xl border-b border-gray-200/60 ">
+            <Tab
+              className="flex-1 rounded-xl focus:outline-0  text-center py-4 px-6 cursor-pointer text-lg font-semibold transition-all duration-300
+    text-gray-700  hover:bg-green-100 hover:text-green-800 
+    "
+            >
+              Tour Packages
             </Tab>
-            <Tab className="flex-1 text-center py-4 px-6 cursor-pointer text-lg font-semibold text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-200 focus:outline-none ui-selected:border-b-4 ui-selected:border-blue-600 ui-selected:text-blue-800 ui-selected:font-bold">
-              Meet Our Tour Guides
+            <Tab
+              className="flex-1 rounded-xl focus:outline-0  text-center py-4 px-6 cursor-pointer text-lg font-semibold transition-all duration-300
+    text-gray-700  hover:bg-green-100 hover:text-green-800 
+    "
+            >
+              Our Guides
             </Tab>
           </TabList>
 
-          {/* Our Packages Tab Panel */}
           <TabPanel className="p-8">
-            <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-              Handpicked Tour Packages
+            <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center ">
+              Curated Tour Packages
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {randomPackages.map((pkg) => (
                 <div
                   key={pkg.id}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300"
+                  className="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-102 transition-all duration-300 "
                 >
                   <img
                     src={pkg.photo}
                     alt={pkg.tripTitle}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-56 object-cover rounded-t-xl"
                   />
                   <div className="p-6">
-                    <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full mb-2">
+                    <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full mb-3">
                       {pkg.tourType}
                     </span>
                     <h4 className="text-xl font-bold text-gray-900 mb-2">
@@ -206,13 +211,13 @@ const TourismSection = () => {
                     <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                       {pkg.description}
                     </p>
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="flex justify-between items-center">
                       <span className="text-2xl font-bold text-green-600">
                         {pkg.price}
                       </span>
                       <button
                         onClick={() => handleViewDetails("package", pkg.id)}
-                        className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-md"
+                        className="bg-green-600 text-white px-5 py-2 rounded-full hover:bg-green-700 transition-colors duration-300 shadow-md"
                       >
                         View Package
                       </button>
@@ -222,32 +227,31 @@ const TourismSection = () => {
               ))}
             </div>
             {randomPackages.length === 0 && (
-              <p className="text-center text-gray-500 text-lg">
+              <p className="text-center text-gray-500 text-lg ">
                 No packages available at the moment. Please check back later!
               </p>
             )}
           </TabPanel>
 
-          {/* Meet Our Tour Guides Tab Panel */}
           <TabPanel className="p-8">
-            <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-              Meet Our Expert Tour Guides
+            <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center ">
+              Meet Our Expert Guides
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {randomGuides.map((guide) => (
                 <div
                   key={guide.id}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 flex flex-col items-center p-6 text-center"
+                  className="bg-white rounded-xl shadow-md  overflow-hidden transform hover:scale-102 transition-all duration-300  flex flex-col items-center p-6 text-center"
                 >
                   <img
                     src={guide.photo}
                     alt={guide.name}
-                    className="w-32 h-32 rounded-full object-cover mb-4 border-4 border-blue-200"
+                    className="w-32 h-32 rounded-full object-cover mb-4 border-4 border-green-200 hover:border-green-400 transition-colors duration-300"
                   />
                   <h4 className="text-xl font-bold text-gray-900 mb-1">
                     {guide.name}
                   </h4>
-                  <p className="text-blue-600 font-semibold mb-2">
+                  <p className="text-green-600 font-semibold mb-2">
                     {guide.specialty}
                   </p>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-3">
@@ -271,7 +275,7 @@ const TourismSection = () => {
               ))}
             </div>
             {randomGuides.length === 0 && (
-              <p className="text-center text-gray-500 text-lg">
+              <p className="text-center text-gray-500 text-lg ">
                 No tour guides available at the moment. Please check back later!
               </p>
             )}

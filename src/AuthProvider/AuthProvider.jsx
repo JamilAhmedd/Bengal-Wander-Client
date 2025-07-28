@@ -26,15 +26,9 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
-  const userUpdate = (name, photoURL) => {
-    updateProfile(auth.currentUser, {
-      displayName: { name },
-      photoURL: { photoURL },
-    })
-      .then(() => {
-        // Profile updated!
-        // ...
-      })
+  const userUpdate = (updatedProfile) => {
+    updateProfile(auth.currentUser, updatedProfile)
+      .then(() => {})
       .catch((error) => {
         console.log(error);
       });

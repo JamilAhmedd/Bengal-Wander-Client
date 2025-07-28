@@ -1,37 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { motion } from "motion/react";
 import { Link } from "react-router";
+import useAuth from "../../AuthProvider/useAuth";
+import useAxiosPublic from "../../components/hooks/useAxiosPublic";
 
 const Register = () => {
+  const axiosPublic = useAxiosPublic();
+  const [profile, setProfile] = useState("");
+  const { createAccount, userUpdate } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm();
 
   const onSubmit = (data) => {
-    Swal.fire({
-      icon: "success",
-      title: "Registration Successful!",
-      text: "Welcome to Bengal-Wander. Let's start your journey!",
-      timer: 2000,
-      timerProgressBar: true,
-      showConfirmButton: false,
-      background: "#fff",
-      color: "#333",
-      customClass: {
-        popup: "rounded-xl shadow-lg",
-        title: "text-gray-900 dark:text-gray-800",
-        content: "text-gray-700 dark:text-gray-600",
-      },
-    }).then(() => {
-      // window.location.href = "/auth/login";
+    createAccount(data.email, data.password).then((res) => {
+      const updatedProfile = {
+        displayName: data.name,
+        photoURL: profile,
+      };
+      userUpdate(updatedProfile);
+      Swal.fire({
+        icon: "success",
+        title: "Registration Successful!",
+        text: "Welcome to Bengal-Wander. Let's start your journey!",
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        background: "#fff",
+        color: "#333",
+        customClass: {
+          popup: "rounded-xl shadow-lg",
+          title: "text-gray-900 dark:text-gray-800",
+          content: "text-gray-700 dark:text-gray-600",
+        },
+      });
     });
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    const res = await axiosPublic.post(
+      `https://api.imgbb.com/1/upload?expiration=600&key=${
+        import.meta.env.VITE_imgbb_key
+      }`,
+      formData
+    );
+    setProfile(res.data.data.url);
+  };
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -126,31 +147,20 @@ const Register = () => {
             </p>
           )}
         </div>
-
-        {/* Confirm Password */}
         <div>
           <label
-            htmlFor="confirmPassword"
+            htmlFor="photo"
             className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
           >
-            Confirm Password
+            Profile Picture
           </label>
           <input
-            type="password"
-            id="confirmPassword"
-            {...register("confirmPassword", {
-              required: "Please confirm your password",
-              validate: (value) =>
-                value === watch("password") || "Passwords do not match",
-            })}
-            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800"
-            placeholder="••••••••"
+            onChange={handleImageUpload}
+            type="file"
+            id="photo"
+            accept="image/*"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition duration-200 ease-in-out file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
           />
-          {errors.confirmPassword && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-              {errors.confirmPassword.message}
-            </p>
-          )}
         </div>
 
         {/* Submit */}

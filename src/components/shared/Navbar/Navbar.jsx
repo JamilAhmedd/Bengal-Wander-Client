@@ -1,32 +1,15 @@
-import { NavLink, useNavigate } from "react-router";
-import { useEffect, useRef, useState } from "react";
+import { Link, NavLink } from "react-router";
+
 import logo from "../../../assets/brand-logo.png";
+import useAuth from "../../../AuthProvider/useAuth";
+import Profile from "../Profile/Profile";
+
 const Navbar = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const navigate = useNavigate();
-  const dropdownRef = useRef(null);
-
-  const user = {
-    name: "Jamil Ahmed",
-    email: "jamil@example.com",
-    photoURL: "https://i.pravatar.cc/150?img=3",
-  };
-
+  const { user } = useAuth();
   const handleLogout = () => {
     console.log("Logged out");
     // navigate("/login");
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   const navItems = (
     <>
@@ -64,44 +47,15 @@ const Navbar = () => {
           {navItems}
 
           {/* Profile Dropdown */}
-          <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={() => setDropdownOpen((prev) => !prev)}
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full ring ring-green-700 ring-offset-base-100 ring-offset-2">
-                <img src={user.photoURL} alt="User" />
-              </div>
-            </button>
-
-            {dropdownOpen && (
-              <ul className="absolute right-0 mt-3 z-[100] p-2 w-60 shadow bg-white rounded-box border border-gray-200">
-                <li className="px-3 py-2 border-b">
-                  <p className="text-sm font-semibold text-gray-500">
-                    {user.name}
-                  </p>
-                  <p className="text-xs text-gray-500">{user.email}</p>
-                </li>
-                <li>
-                  <NavLink
-                    to="/dashboard"
-                    className="block px-4 py-2 text-black hover:bg-gray-100 rounded-md"
-                  >
-                    Dashboard
-                  </NavLink>
-                </li>
-
-                <li>
-                  <button
-                    onClick={handleLogout}
-                    className="text-left text-red-500 hover:bg-gray-100 cursor-pointer w-full px-4 py-2 mt-1 rounded-md"
-                  >
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            )}
-          </div>
+          {user ? (
+            <Profile></Profile>
+          ) : (
+            <Link to="auth/login">
+              <button className="px-4 w-max py-2 cursor-pointer rounded-md  bg-emerald-400 text-white border-none hover:bg-emerald-500 flex items-center justify-center">
+                Sign In
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>
