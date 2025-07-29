@@ -64,7 +64,6 @@ const UserDashboard = () => {
       const updateData = {
         name: formData.name.trim(),
         photoURL: formData.photoURL.trim(),
-        updatedAt: new Date().toISOString(),
       };
       const updatedProfile = {
         displayName: formData.name,
@@ -83,7 +82,7 @@ const UserDashboard = () => {
           confirmButtonText: "Great!",
           confirmButtonColor: "#10B981",
         });
-        setIsEditOpen(false); // close modal on success
+        setIsEditOpen(false);
       } else {
         throw new Error(response.data.message || "Failed to update profile.");
       }
@@ -141,6 +140,9 @@ const UserDashboard = () => {
           <p className="text-gray-700 text-lg">
             <strong className="text-emerald-800">Email:</strong>{" "}
             {user?.email || "N/A"}
+          </p>
+          <p className="text-gray-700 text-lg">
+            <strong className="text-emerald-800">Role:</strong> {role || "N/A"}
           </p>
         </div>
       </div>

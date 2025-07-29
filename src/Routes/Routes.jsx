@@ -9,7 +9,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import ForgotPassword from "../components/ForgotPassword/ForgotPassword";
-import ManageProfile from "../components/shared/DashboardComponents/ManageProfile/UserDashboard";
+
 import AddStory from "../components/shared/DashboardComponents/AddStory/AddStory";
 import ManageStories from "../components/shared/DashboardComponents/ManageStories/ManageStories";
 import MyBookings from "../components/shared/DashboardComponents/MyBookings/MyBookings";
@@ -22,9 +22,10 @@ import AddPackage from "../components/shared/DashboardComponents/AddPackage/AddP
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import UserDashboard from "../components/shared/DashboardComponents/ManageProfile/UserDashboard";
-import AdminDashboard from "../components/shared/DashboardComponents/AdminDashboard/AdminDashboard";
-import ManageCandidates from "../components/shared/DashboardComponents/ManageCandidates/ManageCanditase";
+import ManageCandidates from "../components/shared/DashboardComponents/ManageCandidates/ManageCandidates";
 import Payment from "../components/shared/DashboardComponents/Payment/Payment";
+import AdminDashboard from "../components/shared/DashboardComponents/AdminDashboard/AdminDashboard";
+import DashboardIndex from "../components/shared/DashboardComponents/DashboardIndex/DashboardIndex";
 
 const router = createBrowserRouter([
   {
@@ -64,7 +65,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <UserDashboard />,
+        element: <DashboardIndex></DashboardIndex>,
       },
       {
         path: "my-bookings",
@@ -102,14 +103,7 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
-      {
-        path: "",
-        element: (
-          <AdminRoute>
-            <AdminDashboard></AdminDashboard>
-          </AdminRoute>
-        ),
-      },
+
       {
         path: "manage-candidates",
         element: (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Outlet, NavLink, useLocation } from "react-router";
 import {
   UserCircle,
@@ -21,7 +21,11 @@ const Dashboard = () => {
   const location = useLocation();
 
   const { role, roleLoading } = useUserRole();
-  if (!role) return;
+
+  if (!role && !roleLoading) {
+    return;
+  }
+  if (loading || roleLoading) return <p>Loading...</p>;
   const pathSegments = location.pathname.split("/").filter(Boolean);
 
   if (loading || roleLoading) return <p>Loading...</p>;
