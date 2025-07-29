@@ -1,5 +1,4 @@
-// Dashboard.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, NavLink, useLocation } from "react-router";
 import {
   UserCircle,
@@ -7,17 +6,72 @@ import {
   FileText,
   PlusCircle,
   Briefcase,
+  Home,
 } from "lucide-react";
 import logo from "../assets/brand-logo.png";
+import useAuth from "../AuthProvider/useAuth";
+import useAxiosSecure from "../components/hooks/useAxiosSecure";
 
 const Dashboard = () => {
+  const { user, loading } = useAuth();
+  const [role, setRole] = useState();
+  const axiosSecure = useAxiosSecure();
+  const [roleLoading, setRoleLoading] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    setRoleLoading(true);
+    const fetchRole = async () => {
+      const res = await axiosSecure.get("users/role");
+
+      setRole(res.data.role);
+    };
+    fetchRole();
+  }, [axiosSecure]);
+  if (!role) return;
   const pathSegments = location.pathname.split("/").filter(Boolean);
+
+  if (loading) return <p>Loading...</p>;
+  if (!user)
+    return (
+      <p className="flex justify-center items-center h-screen">
+        Please log in.
+      </p>
+    );
+
+  const menuItemsByRole = {
+    admin: [
+      { to: "manage-profile", icon: UserCircle, label: "Manage Profile" },
+      { to: "manage-users", icon: Briefcase, label: "Manage Users" },
+      { to: "manage-packages", icon: PlusCircle, label: "Manage Packages" },
+      { to: "manage-candidates", icon: FileText, label: "Manage Candidates" },
+    ],
+    guide: [
+      { to: "manage-profile", icon: UserCircle, label: "Manage Profile" },
+      { to: "assigned-tours", icon: BookOpen, label: "My Assigned Tours" },
+      { to: "stories/manage", icon: FileText, label: "Manage Stories" },
+      { to: "stories/add", icon: PlusCircle, label: "Add Stories" },
+    ],
+    user: [
+      { to: "manage-profile", icon: UserCircle, label: "Manage Profile" },
+      { to: "my-bookings", icon: BookOpen, label: "My Bookings" },
+      { to: "stories/manage", icon: FileText, label: "Manage Stories" },
+      { to: "stories/add", icon: PlusCircle, label: "Add Stories" },
+      {
+        to: "join-as-tour-guide",
+        icon: Briefcase,
+        label: "Join as Tour Guide",
+      },
+    ],
+  };
+
+  const menuItems = menuItemsByRole[role];
 
   return (
     <div className="drawer lg:drawer-open ">
       <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
+        {/* Header */}
         <div className="w-full flex items-center justify-between p-4 border-b lg:hidden">
           <img src={logo} alt="Logo" className="w-10 h-10" />
           <label htmlFor="dashboard-drawer" className="btn btn-ghost">
@@ -55,12 +109,13 @@ const Dashboard = () => {
               })}
             </ul>
           </div>
-          <div className="rounded-xl border  border-green-400/30 p-4 md:p-6 bg-white shadow-sm">
+          <div className="rounded-xl border border-green-400/30 p-4 md:p-6 bg-white shadow-sm">
             <Outlet />
           </div>
         </main>
       </div>
 
+      {/* Sidebar */}
       <div className="drawer-side">
         <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
         <aside className="w-72 bg-emerald-50 border-r border-emerald-200 shadow-lg min-h-screen flex flex-col justify-between">
@@ -68,11 +123,10 @@ const Dashboard = () => {
             <div className="p-4 mb-4 text-center border-b">
               <img src={logo} alt="Logo" className="w-32 mx-auto" />
             </div>
-
             <ul className="menu space-y-2 px-4">
               <li>
                 <NavLink
-                  to={"manage-profile"}
+                  to="/"
                   className={({ isActive }) =>
                     `flex items-center gap-3 p-2 rounded-lg transition duration-200 ${
                       isActive
@@ -81,68 +135,29 @@ const Dashboard = () => {
                     }`
                   }
                 >
-                  <UserCircle className="w-5 h-5" /> Manage Profile
+                  <Home className="w-5 h-5" />
+                  Home
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to="my-bookings"
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 p-2 rounded-lg transition duration-200 ${
-                      isActive
-                        ? "bg-emerald-200 text-emerald-900 font-semibold"
-                        : "hover:bg-emerald-100"
-                    }`
-                  }
-                >
-                  <BookOpen className="w-5 h-5" /> My Bookings
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="stories/manage"
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 p-2 rounded-lg transition duration-200 ${
-                      isActive
-                        ? "bg-emerald-200 text-emerald-900 font-semibold"
-                        : "hover:bg-emerald-100"
-                    }`
-                  }
-                >
-                  <FileText className="w-5 h-5" /> Manage Stories
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="stories/add"
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 p-2 rounded-lg transition duration-200 ${
-                      isActive
-                        ? "bg-emerald-200 text-emerald-900 font-semibold"
-                        : "hover:bg-emerald-100"
-                    }`
-                  }
-                >
-                  <PlusCircle className="w-5 h-5" /> Add Stories
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="join-as-tour-guide"
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 p-2 rounded-lg transition duration-200 ${
-                      isActive
-                        ? "bg-emerald-200 text-emerald-900 font-semibold"
-                        : "hover:bg-emerald-100"
-                    }`
-                  }
-                >
-                  <Briefcase className="w-5 h-5" /> Join as Tour Guide
-                </NavLink>
-              </li>
+              {menuItems.map(({ to, icon: Icon, label }) => (
+                <li key={to}>
+                  <NavLink
+                    to={to}
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 p-2 rounded-lg transition duration-200 ${
+                        isActive
+                          ? "bg-emerald-200 text-emerald-900 font-semibold"
+                          : "hover:bg-emerald-100"
+                      }`
+                    }
+                  >
+                    <Icon className="w-5 h-5" />
+                    {label}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </div>
-
           <footer className="text-center text-xs text-gray-500 p-4 border-t border-emerald-200">
             © {new Date().getFullYear()} Bengal Wander
           </footer>

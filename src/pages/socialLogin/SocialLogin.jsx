@@ -13,14 +13,13 @@ const SocialLogin = () => {
 
   const handleSignIn = () => {
     signInWithGoogle().then(async (res) => {
-      console.log(res);
       const userInfo = {
         email: res.user.email,
         name: res.user.displayName,
         photoURL: res.user.photoURL,
       };
       axiosPublic.post("/users", userInfo);
-      await getJWT(res.user.email);
+      await getJWT(res.user);
       navigate(from, { replace: true });
     });
   };

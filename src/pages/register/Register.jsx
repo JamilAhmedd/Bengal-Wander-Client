@@ -40,7 +40,7 @@ const Register = () => {
         console.log(res);
       });
       navigate(from, { replace: true });
-      await getJWT(res.user.email);
+      await getJWT(res.user);
       Swal.fire({
         icon: "success",
         title: "Registration Successful!",
