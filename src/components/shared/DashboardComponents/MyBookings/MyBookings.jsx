@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router";
 import useAuth from "../../../../AuthProvider/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 // Mock data for demonstration - replace with actual API calls
 const mockBookings = [
@@ -39,30 +41,31 @@ const mockBookings = [
     status: "rejected",
   },
 ];
-
 const MyBookings = () => {
+  const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        setTimeout(() => {
-          setBookings(mockBookings);
-          setLoading(false);
-        }, 1000);
-      } catch (error) {
-        console.error("Error fetching bookings:", error);
-        setLoading(false);
-      }
-    };
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["bookings", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/bookings`);
+      return res.data;
+    },
+  });
 
-    if (user) {
-      fetchBookings();
+  useEffect(() => {
+    if (data) {
+      setBookings(data);
+      setLoading(false);
     }
-  }, [user]);
+  }, [data]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Failed to load bookings</div>;
 
   const handlePayment = async (booking) => {
     navigate(`/dashboard/payment/${booking.id}`);
@@ -134,12 +137,12 @@ const MyBookings = () => {
             </thead>
             <tbody>
               {bookings.map((booking) => (
-                <tr key={booking.id} className="hover:bg-emerald-50">
+                <tr key={booking.packageId} className="hover:bg-emerald-50">
                   <td className="font-medium">{booking.packageName}</td>
-                  <td>{booking.tourGuideName}</td>
+                  <td>{booking.guide}</td>
                   <td>{formatDate(booking.tourDate)}</td>
                   <td className="font-semibold text-emerald-600">
-                    ${booking.tourPrice}
+                    ${booking.price}
                   </td>
                   <td>{getStatusBadge(booking.status)}</td>
                   <td>

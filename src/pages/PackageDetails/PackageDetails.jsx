@@ -20,6 +20,8 @@ import {
   Mail,
   DollarSign,
 } from "lucide-react";
+import useAxiosSecure from "../../components/hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const PackageDetails = () => {
   const { id } = useParams();
@@ -29,7 +31,7 @@ const PackageDetails = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
-
+  const axiosSecure = useAxiosSecure();
   const { data: pkg = {} } = useQuery({
     queryKey: ["package", id],
     queryFn: async () => {
@@ -63,13 +65,27 @@ const PackageDetails = () => {
       status: "pending",
     };
 
-    const res = await axios.post("http://localhost:5000/bookings", bookingData);
-    if (res.data.insertedId) {
-      alert("Confirm your Booking");
-      navigate("/dashboard/my-bookings");
+    try {
+      const res = await axiosSecure.post("/bookings", bookingData);
+      if (res.data.insertedId) {
+        Swal.fire({
+          icon: "success",
+          title: "Booking Confirmed!",
+          text: "Your trip has been booked successfully.",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        navigate("/dashboard/my-bookings");
+      }
+    } catch (err) {
+      console.error("Booking failed", err);
+      Swal.fire({
+        icon: "error",
+        title: "Booking Failed",
+        text: "Please try again later.",
+      });
     }
   };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50">
       <div className="max-w-7xl mx-auto px-4 py-8">
