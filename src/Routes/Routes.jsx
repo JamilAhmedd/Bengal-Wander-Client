@@ -15,7 +15,7 @@ import ManageStories from "../components/shared/DashboardComponents/ManageStorie
 import MyBookings from "../components/shared/DashboardComponents/MyBookings/MyBookings";
 import TourGuideApplication from "../components/shared/DashboardComponents/TourGuideApplication/TourGuideApplication";
 import UpdateStory from "../components/shared/DashboardComponents/UpdateStory/UpdateStory";
-import StripePayment from "../components/shared/DashboardComponents/Payment/StipePayment";
+import StripePayment from "../components/shared/DashboardComponents/Payment/Payment";
 import EditStory from "../components/shared/DashboardComponents/ManageStories/EditStory";
 import PackageDetails from "../pages/PackageDetails/PackageDetails";
 import AddPackage from "../components/shared/DashboardComponents/AddPackage/AddPackage";
@@ -24,6 +24,7 @@ import AdminRoute from "./AdminRoute";
 import UserDashboard from "../components/shared/DashboardComponents/ManageProfile/UserDashboard";
 import AdminDashboard from "../components/shared/DashboardComponents/AdminDashboard/AdminDashboard";
 import ManageCandidates from "../components/shared/DashboardComponents/ManageCandidates/ManageCanditase";
+import Payment from "../components/shared/DashboardComponents/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -116,6 +117,10 @@ const router = createBrowserRouter([
             <ManageCandidates></ManageCandidates>
           </AdminRoute>
         ),
+      },
+      {
+        path: "payment/:",
+        Component: Payment,
       },
     ],
   },

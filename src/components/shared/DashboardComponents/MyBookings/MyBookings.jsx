@@ -45,7 +45,6 @@ const MyBookings = () => {
   const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [paymentLoading, setPaymentLoading] = useState(null);
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -66,102 +65,7 @@ const MyBookings = () => {
   }, [user]);
 
   const handlePayment = async (booking) => {
-    setPaymentLoading(booking.id);
-
-    try {
-      // Step 1: Create payment intent on your backend
-      const response = await fetch("/api/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: booking.tourPrice * 100, // Convert to cents
-          bookingId: booking.id,
-          userId: user.uid,
-          packageName: booking.packageName,
-        }),
-      });
-
-      const { clientSecret } = await response.json();
-
-      // Step 2: Redirect to Stripe Checkout or handle payment
-      // For this example, we'll simulate a successful payment
-      // In a real implementation, you'd use Stripe Elements or Checkout
-
-      // Simulate payment processing
-      setTimeout(async () => {
-        try {
-          // Step 3: Save payment transaction and update booking status
-          const paymentData = {
-            bookingId: booking.id,
-            userId: user.uid,
-            amount: booking.tourPrice,
-            paymentMethod: "stripe",
-            transactionId: `txn_${Date.now()}`,
-            status: "completed",
-            createdAt: new Date().toISOString(),
-          };
-
-          // Save payment transaction
-          await fetch("/api/payments", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(paymentData),
-          });
-
-          // Update booking status to "in review"
-          await fetch(`/api/bookings/${booking.id}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ status: "in review" }),
-          });
-
-          // Update local state
-          setBookings((prevBookings) =>
-            prevBookings.map((b) =>
-              b.id === booking.id ? { ...b, status: "in review" } : b
-            )
-          );
-
-          alert("Payment successful! Your booking is now under review.");
-        } catch (error) {
-          console.error("Error processing payment:", error);
-          alert("Payment failed. Please try again.");
-        } finally {
-          setPaymentLoading(null);
-        }
-      }, 2000);
-    } catch (error) {
-      console.error("Error initiating payment:", error);
-      alert("Payment failed. Please try again.");
-      setPaymentLoading(null);
-    }
-  };
-
-  const handleCancel = async (bookingId) => {
-    if (window.confirm("Are you sure you want to cancel this booking?")) {
-      try {
-        // API call to cancel booking
-        await fetch(`/api/bookings/${bookingId}`, {
-          method: "DELETE",
-        });
-
-        // Remove from local state
-        setBookings((prevBookings) =>
-          prevBookings.filter((booking) => booking.id !== bookingId)
-        );
-
-        alert("Booking cancelled successfully.");
-      } catch (error) {
-        console.error("Error cancelling booking:", error);
-        alert("Failed to cancel booking. Please try again.");
-      }
-    }
+    navigate(`/dashboard/payment/${booking.id}`);
   };
 
   const getStatusBadge = (status) => {
@@ -245,18 +149,10 @@ const MyBookings = () => {
                           <button
                             className="btn btn-success btn-sm"
                             onClick={() => handlePayment(booking)}
-                            disabled={paymentLoading === booking.id}
                           >
-                            {paymentLoading === booking.id ? (
-                              <span className="loading loading-spinner loading-xs"></span>
-                            ) : (
-                              "Pay"
-                            )}
+                            Pay
                           </button>
-                          <button
-                            className="btn btn-outline btn-error btn-sm"
-                            onClick={() => handleCancel(booking.id)}
-                          >
+                          <button className="btn btn-outline btn-error btn-sm">
                             Cancel
                           </button>
                         </>
