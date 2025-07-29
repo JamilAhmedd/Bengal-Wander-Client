@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 // Mock useAuth hook for demo
 const useAuth = () => ({
@@ -16,7 +18,7 @@ const JoinTourGuide = () => {
   const navigate = useNavigate();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const axiosSecure = useAxiosSecure();
 
   const {
     register,
@@ -35,59 +37,53 @@ const JoinTourGuide = () => {
 
   const watchedTitle = watch("applicationTitle", "");
   const watchedReason = watch("reason", "");
-
   const onSubmit = async (data) => {
     setIsSubmitting(true);
 
     try {
-      // Prepare application data
       const applicationData = {
         applicationTitle: data.applicationTitle.trim(),
         reason: data.reason.trim(),
         cvLink: data.cvLink.trim(),
-        applicantId: user.uid,
-        applicantName: user.displayName,
         applicantEmail: user.email,
+        applicantName: user.displayName,
         appliedAt: new Date().toISOString(),
-        status: "pending", // pending, approved, rejected
+        status: "pending",
       };
 
-      // Submit application to database
-      const response = await fetch("/api/tour-guide-applications", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(applicationData),
-      });
+      const response = await axiosSecure.post(
+        "/tour-guide-application",
+        applicationData
+      );
 
-      if (!response.ok) {
-        throw new Error("Failed to submit application");
+      if (response.data.insertedId) {
+        Swal.fire({
+          title: "Application Submitted!",
+          text: "Your tour guide application has been received. We'll review it soon.",
+          icon: "success",
+          confirmButtonText: "Back to Dashboard",
+          confirmButtonColor: "#10B981", // Tailwind emerald-500
+        }).then(() => {
+          navigate("/dashboard");
+        });
+
+        reset(); // clear form
+      } else {
+        throw new Error("No insertedId returned");
       }
-
-      const savedApplication = await response.json();
-      console.log("Application submitted:", savedApplication);
-
-      // Show success modal
-      setShowSuccessModal(true);
-
-      // Reset form
-      reset();
     } catch (error) {
       console.error("Error submitting application:", error);
-      alert("Failed to submit application. Please try again.");
+      Swal.fire({
+        title: "Submission Failed",
+        text:
+          error?.response?.data?.error ||
+          "Something went wrong. Please try again.",
+        icon: "error",
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  const handleSuccessModalClose = () => {
-    setShowSuccessModal(false);
-
-    navigate("/dashboard/profile");
-    alert("Navigate to dashboard");
-  };
-
   return (
     <div className="space-y-6">
       <div className="text-center">
@@ -252,40 +248,6 @@ const JoinTourGuide = () => {
           </div>
         </div>
       </div>
-
-      {/* Success Modal */}
-      {showSuccessModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
-            <div className="text-6xl text-emerald-500 mb-4">✅</div>
-            <h3 className="text-2xl font-bold text-emerald-800 mb-4">
-              Application Submitted Successfully!
-            </h3>
-            <p className="text-gray-600 mb-6">
-              Thank you for your interest in becoming a tour guide. We have
-              received your application and our team will review it within 3-5
-              business days.
-            </p>
-            <div className="bg-emerald-50 rounded-lg p-4 mb-6">
-              <h4 className="font-semibold text-emerald-800 mb-2">
-                What's Next?
-              </h4>
-              <ul className="text-sm text-emerald-700 text-left space-y-1">
-                <li>• We'll review your application and CV</li>
-                <li>• If selected, we'll contact you for an interview</li>
-                <li>• Successful candidates will receive training</li>
-                <li>• You'll be notified via email about the status</li>
-              </ul>
-            </div>
-            <button
-              className="btn btn-success w-full"
-              onClick={handleSuccessModalClose}
-            >
-              Back to Dashboard
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Tips Section */}
       <div className="bg-emerald-50 rounded-lg p-6">

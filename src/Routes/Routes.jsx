@@ -9,7 +9,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import ForgotPassword from "../components/ForgotPassword/ForgotPassword";
-import ManageProfile from "../components/shared/DashboardComponents/ManageProfile/ManageProfile";
+import ManageProfile from "../components/shared/DashboardComponents/ManageProfile/UserDashboard";
 import AddStory from "../components/shared/DashboardComponents/AddStory/AddStory";
 import ManageStories from "../components/shared/DashboardComponents/ManageStories/ManageStories";
 import MyBookings from "../components/shared/DashboardComponents/MyBookings/MyBookings";
@@ -19,6 +19,11 @@ import StripePayment from "../components/shared/DashboardComponents/Payment/Stip
 import EditStory from "../components/shared/DashboardComponents/ManageStories/EditStory";
 import PackageDetails from "../pages/PackageDetails/PackageDetails";
 import AddPackage from "../components/shared/DashboardComponents/AddPackage/AddPackage";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import UserDashboard from "../components/shared/DashboardComponents/ManageProfile/UserDashboard";
+import AdminDashboard from "../components/shared/DashboardComponents/AdminDashboard/AdminDashboard";
+import ManageCandidates from "../components/shared/DashboardComponents/ManageCandidates/ManageCanditase";
 
 const router = createBrowserRouter([
   {
@@ -50,11 +55,15 @@ const router = createBrowserRouter([
 
   {
     path: "/dashboard",
-    Component: Dashboard,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
-        path: "manage-profile",
-        element: <ManageProfile />,
+        path: "",
+        element: <UserDashboard />,
       },
       {
         path: "my-bookings",
@@ -86,7 +95,27 @@ const router = createBrowserRouter([
       },
       {
         path: "add-packages",
-        element: <AddPackage></AddPackage>,
+        element: (
+          <AdminRoute>
+            <AddPackage></AddPackage>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "",
+        element: (
+          <AdminRoute>
+            <AdminDashboard></AdminDashboard>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-candidates",
+        element: (
+          <AdminRoute>
+            <ManageCandidates></ManageCandidates>
+          </AdminRoute>
+        ),
       },
     ],
   },

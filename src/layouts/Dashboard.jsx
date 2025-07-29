@@ -11,48 +11,36 @@ import {
 import logo from "../assets/brand-logo.png";
 import useAuth from "../AuthProvider/useAuth";
 import useAxiosSecure from "../components/hooks/useAxiosSecure";
+import useUserRole from "../components/hooks/useUserRole";
 
 const Dashboard = () => {
   const { user, loading } = useAuth();
-  const [role, setRole] = useState();
+
   const axiosSecure = useAxiosSecure();
 
   const location = useLocation();
 
-  useEffect(() => {
-    const fetchRole = async () => {
-      const res = await axiosSecure.get("users/role");
-
-      setRole(res.data.role);
-    };
-    fetchRole();
-  }, [axiosSecure]);
+  const { role, roleLoading } = useUserRole();
   if (!role) return;
   const pathSegments = location.pathname.split("/").filter(Boolean);
 
-  if (loading) return <p>Loading...</p>;
-  if (!user)
-    return (
-      <p className="flex justify-center items-center h-screen">
-        Please log in.
-      </p>
-    );
+  if (loading || roleLoading) return <p>Loading...</p>;
 
   const menuItemsByRole = {
     admin: [
-      { to: "manage-profile", icon: UserCircle, label: "Manage Profile" },
+      { to: "", icon: UserCircle, label: "Manage Profile" },
       { to: "manage-users", icon: Briefcase, label: "Manage Users" },
       { to: "add-packages", icon: PlusCircle, label: "Add Packages" },
       { to: "manage-candidates", icon: FileText, label: "Manage Candidates" },
     ],
     guide: [
-      { to: "manage-profile", icon: UserCircle, label: "Manage Profile" },
+      { to: "", icon: UserCircle, label: "Manage Profile" },
       { to: "assigned-tours", icon: BookOpen, label: "My Assigned Tours" },
       { to: "stories/manage", icon: FileText, label: "Manage Stories" },
       { to: "stories/add", icon: PlusCircle, label: "Add Stories" },
     ],
     user: [
-      { to: "manage-profile", icon: UserCircle, label: "Manage Profile" },
+      { to: "", icon: UserCircle, label: "Manage Profile" },
       { to: "my-bookings", icon: BookOpen, label: "My Bookings" },
       { to: "stories/manage", icon: FileText, label: "Manage Stories" },
       { to: "stories/add", icon: PlusCircle, label: "Add Stories" },
@@ -109,7 +97,7 @@ const Dashboard = () => {
             </ul>
           </div>
           <div className="rounded-xl border border-green-400/30 p-4 md:p-6 bg-white shadow-sm">
-            <Outlet context={{ role }} />
+            <Outlet context={{ role, roleLoading }} />
           </div>
         </main>
       </div>
@@ -144,7 +132,9 @@ const Dashboard = () => {
                     to={to}
                     className={({ isActive }) =>
                       `flex items-center gap-3 p-2 rounded-lg transition duration-200 ${
-                        isActive
+                        isActive &&
+                        ((to === "" && location.pathname === "/dashboard") ||
+                          to !== "")
                           ? "bg-emerald-200 text-emerald-900 font-semibold"
                           : "hover:bg-emerald-100"
                       }`
