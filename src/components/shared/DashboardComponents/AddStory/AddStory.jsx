@@ -132,7 +132,7 @@ const AddStory = () => {
         title: data.title.trim(),
         content: data.content.trim(),
         images: imageUrls,
-        authorEmail: user.email,
+        authorEmail: user.displayName,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         status: "published",

@@ -43,7 +43,7 @@ const Dashboard = () => {
     admin: [
       { to: "manage-profile", icon: UserCircle, label: "Manage Profile" },
       { to: "manage-users", icon: Briefcase, label: "Manage Users" },
-      { to: "manage-packages", icon: PlusCircle, label: "Manage Packages" },
+      { to: "add-packages", icon: PlusCircle, label: "Add Packages" },
       { to: "manage-candidates", icon: FileText, label: "Manage Candidates" },
     ],
     guide: [

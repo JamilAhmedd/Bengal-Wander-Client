@@ -41,7 +41,7 @@ const PackageDetails = () => {
   const { data: guides = [] } = useQuery({
     queryKey: ["guides"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/users/guides");
+      const res = await axiosPublic.get("/tour-guide");
       return res.data;
     },
   });
@@ -182,7 +182,7 @@ const PackageDetails = () => {
             >
               <div className="card-body">
                 <h2 className="card-title text-2xl text-gray-900 mb-6">
-                  Tour Itinerary
+                  Tour Planning
                 </h2>
                 <div className="space-y-4">
                   {pkg.tourPlan?.map((item, idx) => (
@@ -250,15 +250,14 @@ const PackageDetails = () => {
             </motion.div>
           </div>
 
-          {/* Booking Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="w-full lg:col-span-1">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="card bg-white shadow-xl sticky top-8"
+              className="card bg-white shadow-xl lg:sticky lg:top-8 w-full"
             >
-              <div className="card-body">
+              <div className="card-body px-4 sm:px-6 lg:px-8">
                 <h2 className="card-title text-2xl text-gray-900 mb-6">
                   Book This Adventure
                 </h2>
@@ -273,7 +272,7 @@ const PackageDetails = () => {
                       type="text"
                       value={pkg.packageName || ""}
                       readOnly
-                      className="input input-bordered bg-gray-50"
+                      className="input input-bordered bg-gray-50 w-full"
                     />
                   </div>
 
@@ -289,7 +288,7 @@ const PackageDetails = () => {
                       type="text"
                       value={user?.displayName || ""}
                       readOnly
-                      className="input input-bordered bg-gray-50"
+                      className="input input-bordered bg-gray-50 w-full"
                     />
                   </div>
 
@@ -305,7 +304,7 @@ const PackageDetails = () => {
                       type="email"
                       value={user?.email || ""}
                       readOnly
-                      className="input input-bordered bg-gray-50"
+                      className="input input-bordered bg-gray-50 w-full"
                     />
                   </div>
 
@@ -321,13 +320,13 @@ const PackageDetails = () => {
                       type="text"
                       value={`${pkg.price}` || ""}
                       readOnly
-                      className="input input-bordered bg-gray-50 font-semibold"
+                      className="input input-bordered bg-gray-50 font-semibold w-full"
                     />
                   </div>
 
                   {/* Tour Date */}
                   <div className="form-control">
-                    <label className="label">
+                    <label className="label mr-2 flex">
                       <span className="label-text font-medium flex items-center gap-2">
                         <Calendar className="w-4 h-4" />
                         Tour Date
@@ -350,7 +349,7 @@ const PackageDetails = () => {
                       </span>
                     </label>
                     <select
-                      className="select select-bordered"
+                      className="select select-bordered w-full"
                       value={selectedGuide}
                       onChange={(e) => setSelectedGuide(e.target.value)}
                     >

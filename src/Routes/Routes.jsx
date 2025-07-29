@@ -18,6 +18,7 @@ import UpdateStory from "../components/shared/DashboardComponents/UpdateStory/Up
 import StripePayment from "../components/shared/DashboardComponents/Payment/StipePayment";
 import EditStory from "../components/shared/DashboardComponents/ManageStories/EditStory";
 import PackageDetails from "../pages/PackageDetails/PackageDetails";
+import AddPackage from "../components/shared/DashboardComponents/AddPackage/AddPackage";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
       {
         path: "edit-story/:id",
         element: <EditStory></EditStory>,
+      },
+      {
+        path: "add-packages",
+        element: <AddPackage></AddPackage>,
       },
     ],
   },

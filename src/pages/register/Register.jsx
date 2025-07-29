@@ -73,14 +73,6 @@ const Register = () => {
         formData
       );
       setProfile(res.data.data.url);
-      Swal.fire({
-        icon: "success",
-        title: "Image Uploaded!",
-        text: "Your profile picture is ready.",
-        timer: 1500,
-        timerProgressBar: true,
-        showConfirmButton: false,
-      });
     } catch (error) {
       console.error("Error uploading image:", error);
       Swal.fire({
@@ -210,10 +202,13 @@ const Register = () => {
           type="submit"
           className="w-full cursor-pointer py-3 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold rounded-lg shadow-lg transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-400 focus:ring-opacity-75 transition duration-300 ease-in-out"
         >
-          Register
+          {isUploadingImage ? (
+            <span className="loading loading-dots loading-xl"></span>
+          ) : (
+            "Register"
+          )}
         </button>
       </form>
-      <SocialLogin></SocialLogin>
 
       {/* Link to Login */}
       <p className="mt-6 text-center text-gray-600 dark:text-gray-400 text-sm">
@@ -225,6 +220,7 @@ const Register = () => {
           Login to continue your adventure!
         </Link>
       </p>
+      <SocialLogin></SocialLogin>
     </motion.div>
   );
 };

@@ -14,7 +14,7 @@ const Navbar = () => {
         end
         className={({ isActive }) =>
           isActive
-            ? "text-green-800 font-semibold border-b-2 border-blue-600 pb-1"
+            ? "text-green-800 font-semibold border-b-2 border-green-600 pb-1"
             : "text-gray-600 hover:text-green-800 transition"
         }
       >
@@ -25,7 +25,7 @@ const Navbar = () => {
         to="/community"
         className={({ isActive }) =>
           isActive
-            ? "text-green-800 font-semibold border-b-2 border-blue-600 pb-1"
+            ? "text-green-800 font-semibold border-b-2 border-green-600 pb-1"
             : "text-gray-600 hover:text-green-800 transition"
         }
       >
@@ -37,7 +37,7 @@ const Navbar = () => {
           to="/trips"
           className={({ isActive }) =>
             isActive
-              ? "text-green-800 font-semibold border-b-2 border-blue-600 pb-1"
+              ? "text-green-800 font-semibold border-b-2 border-green-600 pb-1"
               : "text-gray-600 hover:text-green-800 transition"
           }
         >
@@ -49,7 +49,7 @@ const Navbar = () => {
         to="/about-us"
         className={({ isActive }) =>
           isActive
-            ? "text-green-800 font-semibold border-b-2 border-blue-600 pb-1"
+            ? "text-green-800 font-semibold border-b-2 border-green-600 pb-1"
             : "text-gray-600 hover:text-green-800 transition"
         }
       >
