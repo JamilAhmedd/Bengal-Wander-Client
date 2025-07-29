@@ -16,11 +16,10 @@ const Dashboard = () => {
   const { user, loading } = useAuth();
   const [role, setRole] = useState();
   const axiosSecure = useAxiosSecure();
-  const [roleLoading, setRoleLoading] = useState(false);
+
   const location = useLocation();
 
   useEffect(() => {
-    setRoleLoading(true);
     const fetchRole = async () => {
       const res = await axiosSecure.get("users/role");
 
@@ -110,7 +109,7 @@ const Dashboard = () => {
             </ul>
           </div>
           <div className="rounded-xl border border-green-400/30 p-4 md:p-6 bg-white shadow-sm">
-            <Outlet />
+            <Outlet context={{ role }} />
           </div>
         </main>
       </div>

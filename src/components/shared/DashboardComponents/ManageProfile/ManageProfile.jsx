@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 
 // Mock useAuth hook for demo
 const useAuth = () => ({
@@ -41,6 +41,8 @@ const Input = ({ className, ...props }) => {
 };
 
 const ManageProfile = () => {
+  const { role } = useOutletContext();
+  console.log(role);
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -100,6 +102,7 @@ const ManageProfile = () => {
   };
 
   return (
+    
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold text-emerald-800">
         Welcome, {user?.displayName}
