@@ -3,9 +3,11 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { div } from "motion/react-client";
 import { motion } from "motion/react";
+import { Link } from "react-router";
 const slides = [
   {
     id: "coxs-bazar",
+    link: "/trips/6888af665c780353ba313187",
     image: "./slider-1.jpg",
     alt: "Longest sea beach in Cox's Bazar, Bangladesh",
     location: "Cox's Bazar",
@@ -15,6 +17,7 @@ const slides = [
   {
     id: "gazaria",
     image: "./slider-2.jpg",
+    link: "/trips/6888af665c780353ba313188",
     alt: "Scenic view in Gazaria, Munshiganj, Bangladesh",
     location: "Gazaria, Munshiganj",
     description:
@@ -24,6 +27,7 @@ const slides = [
   {
     id: "sylhet",
     image: "./slider-3.jpg",
+    link: "/trips/6888af665c780353ba313190",
     alt: "Beautiful landscape of Sylhet District, Bangladesh",
     location: "Sylhet District",
     description: "Explore the tea gardens and lush green hills of Sylhet.",
@@ -70,12 +74,14 @@ const Banner = () => {
               <p className="text-sm md:text-lg text-center mb-4">
                 {slide.description}
               </p>
-              <button
-                onClick={() => handleButtonClick(slide.id)}
-                className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300"
-              >
-                {slide.buttonText}
-              </button>
+              <Link to={slide.link}>
+                <button
+                  onClick={() => handleButtonClick(slide.id)}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300"
+                >
+                  {slide.buttonText}
+                </button>
+              </Link>
             </div>
           </div>
         ))}
