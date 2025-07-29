@@ -17,6 +17,7 @@ import TourGuideApplication from "../components/shared/DashboardComponents/TourG
 import UpdateStory from "../components/shared/DashboardComponents/UpdateStory/UpdateStory";
 import StripePayment from "../components/shared/DashboardComponents/Payment/StipePayment";
 import EditStory from "../components/shared/DashboardComponents/ManageStories/EditStory";
+import PackageDetails from "../pages/PackageDetails/PackageDetails";
 
 const router = createBrowserRouter([
   {
@@ -39,8 +40,13 @@ const router = createBrowserRouter([
         path: "trips",
         Component: Trips,
       },
+      {
+        path: "/trips/:id",
+        element: <PackageDetails></PackageDetails>,
+      },
     ],
   },
+
   {
     path: "/dashboard",
     Component: Dashboard,
