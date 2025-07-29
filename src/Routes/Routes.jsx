@@ -16,6 +16,7 @@ import MyBookings from "../components/shared/DashboardComponents/MyBookings/MyBo
 import TourGuideApplication from "../components/shared/DashboardComponents/TourGuideApplication/TourGuideApplication";
 import UpdateStory from "../components/shared/DashboardComponents/UpdateStory/UpdateStory";
 import StripePayment from "../components/shared/DashboardComponents/Payment/StipePayment";
+import EditStory from "../components/shared/DashboardComponents/ManageStories/EditStory";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "payment/:bookingId",
         element: <StripePayment />,
+      },
+      {
+        path: "edit-story/:id",
+        element: <EditStory></EditStory>,
       },
     ],
   },

@@ -6,8 +6,6 @@ import useAuth from "../../../../AuthProvider/useAuth";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
-// Mock useAuth hook for demo
-
 const AddStory = () => {
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
@@ -17,6 +15,16 @@ const AddStory = () => {
   const [images, setImages] = useState([]);
   const [imagePreviews, setImagePreviews] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const MAX_IMAGE_SIZE_MB = 30;
+  const MAX_IMAGE_SIZE_BYTES = MAX_IMAGE_SIZE_MB * 1024 * 1024;
+  const [uploadedUrls, setUploadedUrls] = useState([]);
+  const validTypes = [
+    "image/jpeg",
+    "image/jpg",
+    "image/png",
+    "image/gif",
+    "image/webp",
+  ];
   const {
     register,
     handleSubmit,
@@ -41,34 +49,23 @@ const AddStory = () => {
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
 
-    if (files.length === 0) return;
-
-    const validTypes = [
-      "image/jpeg",
-      "image/jpg",
-      "image/png",
-      "image/gif",
-      "image/webp",
-    ];
     const invalidFiles = files.filter(
-      (file) => !validTypes.includes(file.type)
+      (file) =>
+        !validTypes.includes(file.type) || file.size > MAX_IMAGE_SIZE_BYTES
     );
-
     if (invalidFiles.length > 0) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid File Type",
-        text: "Please select only image files (JPEG, PNG, GIF, WebP)",
-      });
+      alert(
+        `Each image must be a valid format (JPEG, PNG, etc.) and under ${MAX_IMAGE_SIZE_MB}MB.`
+      );
       return;
     }
+
+    if (files.length === 0) return;
 
     setIsUploadingImage(true);
 
     try {
-      const uploadedUrls = [];
-
-      for (const file of files) {
+      const uploadPromises = files.map(async (file) => {
         const formData = new FormData();
         formData.append("image", file);
 
@@ -79,18 +76,22 @@ const AddStory = () => {
           formData
         );
 
-        uploadedUrls.push(res.data.data.url);
+        return {
+          url: res.data.data.url,
+          file,
+        };
+      });
 
-        // Also push to preview
-        setImagePreviews((prev) => [
-          ...prev,
-          {
-            id: Date.now() + Math.random(),
-            url: res.data.data.url,
-            file: file,
-          },
-        ]);
-      }
+      const uploadResults = await Promise.all(uploadPromises);
+
+      const newPreviews = uploadResults.map((item) => ({
+        id: Date.now() + Math.random(),
+        url: item.url,
+        file: item.file,
+      }));
+
+      setUploadedUrls((prev) => [...prev, ...uploadResults.map((r) => r.url)]);
+      setImagePreviews((prev) => [...prev, ...newPreviews]);
 
       const newImages = [...images, ...files];
       setImages(newImages);
@@ -98,7 +99,6 @@ const AddStory = () => {
       clearErrors("images");
     } catch (error) {
       console.error("Image upload failed:", error);
-
       setImages([]);
       setImagePreviews([]);
       setValue("images", []);
@@ -122,37 +122,22 @@ const AddStory = () => {
     }
   };
 
-  const uploadImages = async (files) => {
-    // Simulate image upload to cloud storage (e.g., Cloudinary, AWS S3)
-    const uploadPromises = files.map(async (file) => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(`https://example.com/images/${Date.now()}-${file.name}`);
-        }, 1000);
-      });
-    });
-
-    return Promise.all(uploadPromises);
-  };
-
   const onSubmit = async (data) => {
     setIsSubmitting(true);
 
     try {
-      // Upload images
-      const imageUrls = await uploadImages(data.images);
+      const imageUrls = uploadedUrls;
 
-      // story data
       const storyData = {
         title: data.title.trim(),
         content: data.content.trim(),
         images: imageUrls,
-
         authorName: user.displayName,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         status: "published",
       };
+
       try {
         const response = await axiosSecure.post("/stories", storyData);
 
@@ -169,6 +154,7 @@ const AddStory = () => {
         reset();
         setImages([]);
         setImagePreviews([]);
+        setUploadedUrls([]);
       } catch (error) {
         console.error("Error saving story:", error);
         Swal.fire({
@@ -338,7 +324,12 @@ const AddStory = () => {
                     >
                       Click to upload images
                     </p>
-
+                    <p className="text-sm text-gray-500 mt-1">
+                      Valid types: JPG, JPEG, PNG, GIF, WebP
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Max file size: 30MB each
+                    </p>
                     <p className="text-xs text-red-500 mt-1">
                       * At least one image is required
                     </p>
@@ -346,6 +337,7 @@ const AddStory = () => {
                 </div>
               )}
             />
+
             {errors.images && (
               <label className="label">
                 <span className="label-text-alt text-error">
@@ -397,7 +389,7 @@ const AddStory = () => {
               type="button"
               className="btn btn-success"
               onClick={handleSubmit(onSubmit)}
-              disabled={(isSubmitting, isUploadingImage)}
+              disabled={isSubmitting || isUploadingImage}
             >
               {isUploadingImage && (
                 <>
