@@ -9,6 +9,13 @@ import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import ForgotPassword from "../components/ForgotPassword/ForgotPassword";
+import ManageProfile from "../components/shared/DashboardComponents/ManageProfile/ManageProfile";
+import AddStory from "../components/shared/DashboardComponents/AddStory/AddStory";
+import ManageStories from "../components/shared/DashboardComponents/ManageStories/ManageStories";
+import MyBookings from "../components/shared/DashboardComponents/MyBookings/MyBookings";
+import TourGuideApplication from "../components/shared/DashboardComponents/TourGuideApplication/TourGuideApplication";
+import UpdateStory from "../components/shared/DashboardComponents/UpdateStory/UpdateStory";
+import StripePayment from "../components/shared/DashboardComponents/Payment/StipePayment";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +43,36 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     Component: Dashboard,
-    children: [{}],
+    children: [
+      {
+        path: "manage-profile",
+        element: <ManageProfile />,
+      },
+      {
+        path: "my-bookings",
+        element: <MyBookings />,
+      },
+      {
+        path: "stories/add",
+        element: <AddStory />,
+      },
+      {
+        path: "stories/manage",
+        element: <ManageStories />,
+      },
+      {
+        path: "stories/update/:id",
+        element: <UpdateStory />,
+      },
+      {
+        path: "join-as-tour-guide",
+        element: <TourGuideApplication />,
+      },
+      {
+        path: "payment/:bookingId",
+        element: <StripePayment />,
+      },
+    ],
   },
   {
     path: "/auth",

@@ -63,15 +63,13 @@ const Register = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    setIsUploadingImage(true); // Indicate that an upload is in progress
+    setIsUploadingImage(true);
     const formData = new FormData();
     formData.append("image", file);
 
     try {
       const res = await axiosPublic.post(
-        `https://api.imgbb.com/1/upload?expiration=600&key=${
-          import.meta.env.VITE_imgbb_key
-        }`,
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imgbb_key}`,
         formData
       );
       setProfile(res.data.data.url);

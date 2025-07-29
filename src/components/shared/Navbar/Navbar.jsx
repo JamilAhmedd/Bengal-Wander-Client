@@ -5,33 +5,56 @@ import useAuth from "../../../AuthProvider/useAuth";
 import Profile from "../Profile/Profile";
 
 const Navbar = () => {
-  const { user,logOUt } = useAuth();
-  const handleLogout = () => {
-    console.log("Logged out");
- 
-  };
+  const { user } = useAuth();
 
   const navItems = (
     <>
-      {[
-        { path: "/", label: "Home" },
-        { path: "/community", label: "Community" },
-        { path: "/about-us", label: "About Us" },
-        { path: "/trips", label: "Trips" },
-      ].map(({ path, label }) => (
+      <NavLink
+        to="/"
+        end
+        className={({ isActive }) =>
+          isActive
+            ? "text-green-800 font-semibold border-b-2 border-blue-600 pb-1"
+            : "text-gray-600 hover:text-green-800 transition"
+        }
+      >
+        Home
+      </NavLink>
+
+      <NavLink
+        to="/community"
+        className={({ isActive }) =>
+          isActive
+            ? "text-green-800 font-semibold border-b-2 border-blue-600 pb-1"
+            : "text-gray-600 hover:text-green-800 transition"
+        }
+      >
+        Community
+      </NavLink>
+
+      {user && (
         <NavLink
-          key={path}
-          to={path}
-          end={path === "/"}
+          to="/trips"
           className={({ isActive }) =>
             isActive
               ? "text-green-800 font-semibold border-b-2 border-blue-600 pb-1"
               : "text-gray-600 hover:text-green-800 transition"
           }
         >
-          {label}
+          Trips
         </NavLink>
-      ))}
+      )}
+
+      <NavLink
+        to="/about-us"
+        className={({ isActive }) =>
+          isActive
+            ? "text-green-800 font-semibold border-b-2 border-blue-600 pb-1"
+            : "text-gray-600 hover:text-green-800 transition"
+        }
+      >
+        About Us
+      </NavLink>
     </>
   );
 
