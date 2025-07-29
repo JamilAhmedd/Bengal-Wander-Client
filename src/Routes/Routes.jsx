@@ -26,6 +26,7 @@ import ManageCandidates from "../components/shared/DashboardComponents/ManageCan
 import Payment from "../components/shared/DashboardComponents/Payment/Payment";
 import AdminDashboard from "../components/shared/DashboardComponents/AdminDashboard/AdminDashboard";
 import DashboardIndex from "../components/shared/DashboardComponents/DashboardIndex/DashboardIndex";
+import ManageUsers from "../components/shared/DashboardComponents/ManageUsers/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -100,6 +101,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AddPackage></AddPackage>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
           </AdminRoute>
         ),
       },
