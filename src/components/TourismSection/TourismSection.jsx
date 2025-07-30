@@ -32,7 +32,7 @@ const TourismSection = () => {
     },
   });
   const handleViewDetails = (id) => {
-    navigate(`/trips/${id}`);
+    navigate(`/guide/${id}`);
   };
 
   return (
@@ -60,7 +60,7 @@ const TourismSection = () => {
           </TabList>
 
           <TabPanel className="p-8">
-            <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+            <h3 className="text-3xl font-bold  text-gray-800 mb-6 mt-20 text-center">
               Explore Our Travel Packages
             </h3>
 
@@ -115,12 +115,12 @@ const TourismSection = () => {
               </div>
             )}
           </TabPanel>
-
-          <TabPanel>
+          <TabPanel className="p-8">
+            <h1 className="text-3xl font-bold my-6 text-gray-800   text-center">
+              Meet Our Guides
+            </h1>
             {guidePending ? (
-              <div className="text-center text-lg text-gray-500 py-6">
-                <span className="loading loading-spinner loading-lg text-emerald-500"></span>
-              </div>
+              <span className="loading loading-spinner loading-lg text-emerald-500"></span>
             ) : guideError ? (
               <p className="text-center text-red-500">
                 Failed to load Tour Guides.
@@ -134,7 +134,7 @@ const TourismSection = () => {
                 {tourGuides.map((guide) => (
                   <div
                     key={guide._id}
-                    className="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-102 transition-all duration-300 flex flex-col items-center p-6 text-center"
+                    className="bg-green-50 rounded-xl shadow-md overflow-hidden transform hover:scale-102 transition-all duration-300 flex flex-col items-center p-6 text-center"
                   >
                     <img
                       src={guide.photoURL}
