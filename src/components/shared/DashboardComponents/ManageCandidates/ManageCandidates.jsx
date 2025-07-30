@@ -22,7 +22,7 @@ const ManageCandidates = () => {
   const acceptMutation = useMutation({
     mutationFn: async (app) => {
       await axiosSecure.patch(`/users/role/${app.applicantEmail}`, {
-        role: "tour-guide",
+        role: "guide",
       });
 
       return await axiosSecure.delete(`/tour-guide-applications/${app._id}`);

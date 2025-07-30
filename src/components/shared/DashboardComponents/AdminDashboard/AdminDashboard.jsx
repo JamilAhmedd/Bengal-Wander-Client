@@ -44,7 +44,7 @@ const AdminDashboard = () => {
       displayName: editInfo.name,
       photoURL: editInfo.photoURL,
     };
-    const response = await userUpdate(user, updatedProfile);
+    await userUpdate(user, updatedProfile);
 
     Swal.fire({
       title: "Success!",
@@ -62,7 +62,7 @@ const AdminDashboard = () => {
         Welcome back, {user?.displayName} 👋
       </h2>
 
-  {/************************** {stats caardssss} *************************************/}
+      {/************************** {stats caardssss} *************************************/}
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4">
         <div className="stat bg-white border-l-4 border-emerald-400">
           <div className="stat-title text-gray-500">Total Payment</div>
