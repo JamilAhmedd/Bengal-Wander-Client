@@ -3,9 +3,9 @@ import { useOutletContext } from "react-router";
 import { Pencil } from "lucide-react";
 import useAuth from "../../../../AuthProvider/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
-import Swal from "sweetalert2";
 
+import Swal from "sweetalert2";
+import Input from "../../Input/Input";
 const Modal = ({ open, onClickBackdrop, children }) => {
   if (!open) return null;
 
@@ -25,10 +25,6 @@ const Modal = ({ open, onClickBackdrop, children }) => {
   );
 };
 
-// Input Component
-const Input = ({ className, ...props }) => {
-  return <input className={className} {...props} />;
-};
 const GuideDashboard = () => {
   const { user, userUpdate } = useAuth();
   const { role, roleLoading } = useOutletContext();
@@ -39,19 +35,6 @@ const GuideDashboard = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
-
-  const {
-    data: assignedTours = [],
-    refetch,
-    isLoading,
-  } = useQuery({
-    queryKey: ["assigned-tours", user?.email],
-    enabled: !!user?.email,
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/assigned-tours?email=${user?.email}`);
-      return res.data;
-    },
-  });
 
   const handleEditChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -97,25 +80,6 @@ const GuideDashboard = () => {
       });
     } finally {
       setIsSubmitting(false);
-    }
-  };
-  const handleAccept = async (id) => {
-    await axiosSecure.patch(`/assigned-tours/accept/${id}`);
-    refetch();
-  };
-
-  const handleReject = async (id) => {
-    const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "This action cannot be undone!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      confirmButtonText: "Yes, reject it!",
-    });
-    if (result.isConfirmed) {
-      await axiosSecure.patch(`/assigned-tours/reject/${id}`);
-      refetch();
     }
   };
 
@@ -186,7 +150,7 @@ const GuideDashboard = () => {
                 <p className="text-sm text-emerald-600">{user?.email}</p>
               </div>
             </div>
-            }
+
             <div>
               <label className="label">
                 <span className="label-text font-semibold text-emerald-800">

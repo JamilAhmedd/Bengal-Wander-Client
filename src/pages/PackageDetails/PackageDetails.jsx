@@ -238,7 +238,7 @@ const PackageDetails = () => {
                   {guides.map((guide) => (
                     <div
                       key={guide._id}
-                      onClick={() => navigate(`/guides/${guide._id}`)}
+                      onClick={() => navigate(`/guide/${guide._id}`)}
                       className="card bg-gradient-to-br from-emerald-50 to-teal-50 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
                     >
                       <div className="card-body items-center text-center p-6">

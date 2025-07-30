@@ -12,13 +12,13 @@ const MyAssignedTours = () => {
 
   const { data: assignedTours = [], isLoading } = useQuery({
     queryKey: ["assigned-tours", user?.email],
+    enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(
         `/assigned-tours?name=${user.displayName}`
       );
       return res.data;
     },
-    enabled: !!user?.email,
   });
 
   const updateStatusMutation = useMutation({
