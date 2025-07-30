@@ -6,7 +6,6 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 
-// Modal Component
 const Modal = ({ open, onClickBackdrop, children }) => {
   if (!open) return null;
 
@@ -166,7 +165,6 @@ const GuideDashboard = () => {
 
           {/* Modal Form */}
           <div className="space-y-4">
-          
             <div className="flex items-center gap-4 p-4 bg-emerald-50 rounded-lg">
               <img
                 src={
@@ -188,8 +186,7 @@ const GuideDashboard = () => {
                 <p className="text-sm text-emerald-600">{user?.email}</p>
               </div>
             </div>
-
-      }
+            }
             <div>
               <label className="label">
                 <span className="label-text font-semibold text-emerald-800">
@@ -208,8 +205,6 @@ const GuideDashboard = () => {
                 maxLength={50}
               />
             </div>
-
-
             <div>
               <label className="label">
                 <span className="label-text font-semibold text-emerald-800">
@@ -225,7 +220,6 @@ const GuideDashboard = () => {
                 className="input input-bordered w-full focus:border-emerald-500"
               />
             </div>
-
             <div className="flex justify-end gap-3 pt-4 border-t border-black/30">
               <button
                 type="button"

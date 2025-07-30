@@ -1,6 +1,5 @@
-// src/pages/Trips.jsx
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+
 import { Link } from "react-router";
 import { motion } from "motion/react";
 import useAxiosPublic from "../../components/hooks/useAxiosPublic";
