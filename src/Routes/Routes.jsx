@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
-import Community from "../pages/Community/Community";
+
 import AboutUs from "../pages/AboutUs/AboutUs";
 import Trips from "../pages/Trips/Trips";
 import Dashboard from "../layouts/Dashboard";
@@ -21,12 +21,14 @@ import PackageDetails from "../pages/PackageDetails/PackageDetails";
 import AddPackage from "../components/shared/DashboardComponents/AddPackage/AddPackage";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
-import UserDashboard from "../components/shared/DashboardComponents/ManageProfile/UserDashboard";
+
 import ManageCandidates from "../components/shared/DashboardComponents/ManageCandidates/ManageCandidates";
 import Payment from "../components/shared/DashboardComponents/Payment/Payment";
-import AdminDashboard from "../components/shared/DashboardComponents/AdminDashboard/AdminDashboard";
+
 import DashboardIndex from "../components/shared/DashboardComponents/DashboardIndex/DashboardIndex";
 import ManageUsers from "../components/shared/DashboardComponents/ManageUsers/ManageUsers";
+import GuideDetailsPage from "../pages/GuideDetails/GuideDetailsPage";
+import CommunityPage from "../pages/Community/CommunityPage";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: "community",
-        Component: Community,
+        Component: CommunityPage,
       },
       {
         path: "about-us",
@@ -52,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/trips/:id",
         element: <PackageDetails></PackageDetails>,
+      },
+      {
+        path: "/guide/:guideId",
+        Component: GuideDetailsPage,
       },
     ],
   },

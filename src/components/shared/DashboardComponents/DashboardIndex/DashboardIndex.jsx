@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router";
 import AdminDashboard from "../AdminDashboard/AdminDashboard";
 import UserDashboard from "../ManageProfile/UserDashboard";
 import AdminRoute from "../../../../Routes/AdminRoute";
+import GuideDashboard from "../GuideDashboard/GuideDashboard";
 
 const DashboardIndex = () => {
   const { role } = useOutletContext();
