@@ -107,7 +107,7 @@ const MyBookings = () => {
           </p>
           <button
             className="btn btn-success"
-            onClick={() => navigate("/packages")}
+            onClick={() => navigate("/trips")}
           >
             Browse Packages
           </button>
