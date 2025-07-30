@@ -218,7 +218,6 @@ const JoinTourGuide = () => {
                 ) {
                   reset();
                   navigate("/dashboard");
-                  alert("Navigate back to profile");
                 }
               }}
             >

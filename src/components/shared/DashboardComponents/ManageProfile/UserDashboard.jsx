@@ -100,13 +100,6 @@ const UserDashboard = () => {
   };
   const handleApplyTourGuide = () => {
     navigate("/dashboard/join-as-tour-guide");
-    Swal.fire({
-      title: "Redirecting...",
-      text: "Navigating to the tour guide application page.",
-      icon: "info",
-      timer: 1500,
-      showConfirmButton: false,
-    });
   };
 
   return (
