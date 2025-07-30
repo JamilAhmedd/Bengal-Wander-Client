@@ -27,7 +27,7 @@ const slides = [
   {
     id: "sylhet",
     image: "./slider-3.jpg",
-    link: "/trips/6888af665c780353ba313190",
+    link: "/trips/688a5d190ceb2d250ecce273",
     alt: "Beautiful landscape of Sylhet District, Bangladesh",
     location: "Sylhet District",
     description: "Explore the tea gardens and lush green hills of Sylhet.",
@@ -37,7 +37,6 @@ const slides = [
 
 const Banner = () => {
   const handleButtonClick = (slideId) => {
-   
     // You can handle navigation here, e.g., navigate(`/destinations/${slideId}`);
   };
 

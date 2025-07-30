@@ -14,9 +14,8 @@ const MyAssignedTours = () => {
     queryKey: ["assigned-tours", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/assigned-tours?name=${user.displayName}`
-      );
+      const res = await axiosSecure.get(`/assigned-tours?email=${user.email}`);
+      console.log(res);
       return res.data;
     },
   });

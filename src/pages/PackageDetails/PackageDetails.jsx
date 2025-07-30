@@ -52,7 +52,10 @@ const PackageDetails = () => {
     if (!user) {
       return navigate("/login");
     }
-
+    const guideEmailResponse = await axiosPublic.get(
+      `/selected-guide/?name=${selectedGuide}`
+    );
+    const guideEmail = guideEmailResponse.data.email;
     const bookingData = {
       packageId: id,
       packageName: pkg.packageName,
@@ -60,7 +63,7 @@ const PackageDetails = () => {
       touristEmail: user.email,
       touristImage: user.photoURL,
       tourDate: date,
-      guide: selectedGuide,
+      guide: guideEmail,
       price: pkg.price,
       status: "pending",
     };
@@ -142,19 +145,15 @@ const PackageDetails = () => {
                     <div className="flex flex-wrap items-center gap-4 text-gray-600">
                       <div className="flex items-center gap-2">
                         <MapPin className="w-5 h-5 text-emerald-600" />
-                        <span>Bangladesh</span>
+                        <span>{pkg.location}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Clock className="w-5 h-5 text-emerald-600" />
-                        <span>7 Days</span>
+                        <span>{pkg.tourPlan?.length} Days</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Users className="w-5 h-5 text-emerald-600" />
-                        <span>Max 15 People</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Star className="w-5 h-5 text-yellow-500" />
-                        <span>4.8 (124 reviews)</span>
+                        <span>{pkg.maxPeople}</span>
                       </div>
                     </div>
                   </div>
