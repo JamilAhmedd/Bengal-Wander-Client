@@ -11,10 +11,10 @@ import {
   WhatsappIcon,
 } from "react-share";
 
-const StoryCard = ({ story, isLoading, isError }) => {
+const StoryCard = ({ story }) => {
   const shareUrl = `${window.location.origin}/stories/${story._id}`;
+  console.log(`${window.location.origin}/stories/${story._id}`);
   const shareTitle = story.title;
-  console.log(story.images[0]);
 
   return (
     <div className=" rounded-2xl  hover:scale-101 bg-white shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300">

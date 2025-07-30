@@ -65,7 +65,6 @@ const ManageCandidates = () => {
     }
   };
 
-  // Reject Handler
   const handleReject = async (app) => {
     const result = await Swal.fire({
       title: "Reject Application?",

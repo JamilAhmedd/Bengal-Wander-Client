@@ -52,7 +52,7 @@ const AddPackage = () => {
     name: "tourPlan",
   });
 
-  // Upload images to imgbb and preview them
+
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
 
@@ -191,7 +191,7 @@ const AddPackage = () => {
             </h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-              {/* Package Name */}
+              {/*************************************************** Package Name */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text mr-4 text-lg font-semibold">
@@ -221,7 +221,7 @@ const AddPackage = () => {
                 )}
               </div>
 
-              {/* Image Upload */}
+              {/*********************************************** Image Upload */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text mb-2 text-lg font-semibold">
@@ -248,7 +248,7 @@ const AddPackage = () => {
                   </label>
                 )}
 
-                {/* Preview thumbnails */}
+                {/**************************************************** Preview thumbnails */}
                 {imagePreviews.length > 0 && (
                   <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
                     {imagePreviews.map((preview, idx) => (
@@ -302,7 +302,7 @@ const AddPackage = () => {
                 )}
               </div>
 
-              {/* Tour Plan */}
+              {/********8*** Tour Plan ***************************/}
               <div className="card bg-green-50 border border-teal-200 p-4 rounded-lg">
                 <h3 className="text-teal-900 font-semibold mb-4">
                   Tour Planning

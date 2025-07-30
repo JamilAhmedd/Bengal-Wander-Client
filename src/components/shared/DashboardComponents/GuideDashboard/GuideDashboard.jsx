@@ -130,7 +130,7 @@ const GuideDashboard = () => {
         Welcome, {user?.displayName} 👋
       </h2>
 
-      {/* Profile Card */}
+      {/********************** Profile Card ****************************/}
       <div className="bg-white rounded-lg shadow p-6 flex items-center gap-6">
         <div className="avatar">
           <div className="w-24 h-24 rounded-full ring ring-emerald-300">
@@ -166,7 +166,7 @@ const GuideDashboard = () => {
 
           {/* Modal Form */}
           <div className="space-y-4">
-            {/* Current Profile Preview */}
+          
             <div className="flex items-center gap-4 p-4 bg-emerald-50 rounded-lg">
               <img
                 src={
@@ -189,7 +189,7 @@ const GuideDashboard = () => {
               </div>
             </div>
 
-            {/* Name Input */}
+      }
             <div>
               <label className="label">
                 <span className="label-text font-semibold text-emerald-800">
@@ -209,7 +209,7 @@ const GuideDashboard = () => {
               />
             </div>
 
-            {/* Photo URL Input */}
+
             <div>
               <label className="label">
                 <span className="label-text font-semibold text-emerald-800">

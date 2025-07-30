@@ -9,13 +9,13 @@ const TourismSection = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const {
-    data: stories = [],
+    data: packages = [],
     isPending,
     isError,
   } = useQuery({
-    queryKey: ["random-stories"],
+    queryKey: ["random-packages"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/random-stories");
+      const res = await axiosPublic.get("/random-packages");
       return res.data;
     },
   });
@@ -27,12 +27,12 @@ const TourismSection = () => {
     queryKey: ["random-guides"],
     queryFn: async () => {
       const res = await axiosPublic.get("/guides-random");
-      console.log(res.data);
+
       return res.data;
     },
   });
   const handleViewDetails = (id) => {
-    navigate(`/guide/${id}`);
+    navigate(`/trips/${id}`);
   };
 
   return (
@@ -48,7 +48,7 @@ const TourismSection = () => {
         >
           <TabList className="flex p-[2px] rounded-xl border-b border-gray-200/60">
             <Tab className="flex-1 rounded-xl focus:outline-0 text-center py-4 px-6 cursor-pointer text-lg font-semibold transition-all duration-300 text-gray-700 hover:bg-green-100 hover:text-green-800">
-              Stories
+              Our Packages
             </Tab>
             <Tab
               className={
@@ -61,7 +61,7 @@ const TourismSection = () => {
 
           <TabPanel className="p-8">
             <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-              Explore Real Travel Experiences
+              Explore Our Travel Packages
             </h3>
 
             {isPending ? (
@@ -70,40 +70,43 @@ const TourismSection = () => {
               </div>
             ) : isError ? (
               <p className="text-center text-red-500">
-                Failed to load stories.
+                Failed to load packages.
               </p>
-            ) : stories.length === 0 ? (
+            ) : packages.length === 0 ? (
               <p className="text-center text-gray-500 text-lg">
-                No stories available at the moment. Please check back later!
+                No packages available at the moment. Please check back later!
               </p>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {stories.map((story) => (
+                {packages.map((pkg) => (
                   <div
-                    key={story._id}
+                    key={pkg._id}
                     className="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-102 transition-all duration-300"
                   >
                     <img
-                      src={story.images[0]}
-                      alt={story.title}
+                      src={pkg.gallery[0] || "/src/assets/brand-logo.png"}
+                      alt={pkg.name}
                       className="w-full h-56 object-cover rounded-t-xl"
                     />
                     <div className="p-6">
                       <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full mb-3">
-                        {story.location}
+                        {pkg.destination || "Bangladesh"}
                       </span>
                       <h4 className="text-xl font-bold text-gray-900 mb-2">
-                        {story.title}
+                        {pkg.name}
                       </h4>
                       <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                        {story.description}
+                        {pkg.description}
                       </p>
-                      <div className="flex justify-end">
+                      <div className="flex justify-between items-center">
+                        <span className="text-green-700 font-bold text-base">
+                          ${pkg.price}
+                        </span>
                         <button
-                          onClick={() => handleViewDetails(story._id)}
+                          onClick={() => navigate(`/trips/${pkg._id}`)}
                           className="bg-green-600 text-white px-5 py-2 rounded-full hover:bg-green-700 transition-colors duration-300 shadow-md"
                         >
-                          View Story
+                          View Details
                         </button>
                       </div>
                     </div>
@@ -112,6 +115,7 @@ const TourismSection = () => {
               </div>
             )}
           </TabPanel>
+
           <TabPanel>
             {guidePending ? (
               <div className="text-center text-lg text-gray-500 py-6">

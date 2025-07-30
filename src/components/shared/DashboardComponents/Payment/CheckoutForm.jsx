@@ -27,7 +27,6 @@ const CheckoutForm = () => {
       return res.data;
     },
   });
-  console.log(packageInfo);
 
   if (isPending) {
     return <span className="loading loading-spinner loading-xl"> </span>;
@@ -45,7 +44,7 @@ const CheckoutForm = () => {
     const card = elements.getElement(CardElement);
     if (!card) return;
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
@@ -53,7 +52,6 @@ const CheckoutForm = () => {
       console.log(error);
       setError(error.message);
     } else {
-      console.log("payment method", paymentMethod);
       setError("");
     }
 
@@ -73,11 +71,6 @@ const CheckoutForm = () => {
     });
     if (result.error) {
       console.log(result.error.message);
-    } else {
-      if (result.paymentIntent.status === "succeeded") {
-        // Payment is successful
-        console.log("Payment succeeded!");
-      }
     }
 
     if (result.paymentIntent && result.paymentIntent.status === "succeeded") {

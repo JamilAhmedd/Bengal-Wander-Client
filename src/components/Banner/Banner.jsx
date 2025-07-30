@@ -37,7 +37,7 @@ const slides = [
 
 const Banner = () => {
   const handleButtonClick = (slideId) => {
-    console.log(`Button clicked on slide: ${slideId}`);
+   
     // You can handle navigation here, e.g., navigate(`/destinations/${slideId}`);
   };
 

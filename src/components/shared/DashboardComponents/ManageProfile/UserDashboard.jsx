@@ -4,6 +4,7 @@ import Swal from "sweetalert2"; // Import SweetAlert2
 
 import useAuth from "../../../../AuthProvider/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Input from "../../Input/Input";
 
 // Modal Component
 const Modal = ({ open, onClickBackdrop, children }) => {
@@ -26,9 +27,6 @@ const Modal = ({ open, onClickBackdrop, children }) => {
 };
 
 // Input Component
-const Input = ({ className, ...props }) => {
-  return <input className={className} {...props} />;
-};
 
 const UserDashboard = () => {
   const { role, roleLoading } = useOutletContext();
@@ -125,9 +123,8 @@ const UserDashboard = () => {
           }
           alt="User Profile"
           className="w-24 h-24 rounded-full object-cover border-2 border-emerald-300 shadow-md"
-          // Fallback for image loading errors
           onError={(e) => {
-            e.target.onerror = null; // Prevent infinite loop
+            e.target.onerror = null;
             e.target.src =
               "https://placehold.co/100x100/E0F2F1/047857?text=User";
           }}

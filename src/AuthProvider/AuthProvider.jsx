@@ -43,14 +43,14 @@ const AuthProvider = ({ children }) => {
   const forgotPassword = (email) => {
     return sendPasswordResetEmail(auth, email)
       .then(() => {
-        console.log("email sent");
+      
         // Password reset email sent!
         // ..
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+       
       });
   };
   const logOut = () => {
@@ -79,7 +79,7 @@ const AuthProvider = ({ children }) => {
     });
 
     return () => {
-      console.log("Cleaning up auth state listener.");
+     
       unsubscribe();
     };
   }, []);

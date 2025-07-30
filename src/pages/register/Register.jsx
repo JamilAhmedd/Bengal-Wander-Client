@@ -37,7 +37,7 @@ const Register = () => {
         photoURL: profile,
       };
       await userUpdate(userToUpdate, updatedProfile).then((res) => {
-        console.log(res);
+       
       });
       navigate(from, { replace: true });
       await getJWT(res.user);
