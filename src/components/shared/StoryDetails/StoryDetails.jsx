@@ -1,11 +1,13 @@
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+
 import moment from "moment";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const StoryDetails = () => {
   const { id } = useParams();
 
+  const axiosPublic = useAxiosPublic();
   const {
     data: story,
     isLoading,
@@ -13,7 +15,7 @@ const StoryDetails = () => {
   } = useQuery({
     queryKey: ["story", id],
     queryFn: async () => {
-      const res = await axios.get(`/stories/${id}`);
+      const res = await axiosPublic.get(`/stories/${id}`);
       return res.data;
     },
   });

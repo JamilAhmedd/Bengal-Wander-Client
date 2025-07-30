@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 import {
   FacebookShareButton,
@@ -13,7 +14,7 @@ import {
 
 const StoryCard = ({ story }) => {
   const shareUrl = `${window.location.origin}/stories/${story._id}`;
-  console.log(`${window.location.origin}/stories/${story._id}`);
+  console.log(shareUrl);
   const shareTitle = story.title;
 
   return (
@@ -80,6 +81,9 @@ const StoryCard = ({ story }) => {
               />
             </WhatsappShareButton>
           </div>
+          <a className="btn btn-success" href={`/stories/${story._id}`}>
+            View
+          </a>
         </div>
       </div>
     </div>

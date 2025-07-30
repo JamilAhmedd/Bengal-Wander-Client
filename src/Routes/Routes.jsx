@@ -30,6 +30,7 @@ import ManageUsers from "../components/shared/DashboardComponents/ManageUsers/Ma
 import GuideDetailsPage from "../pages/GuideDetails/GuideDetailsPage";
 import CommunityPage from "../pages/Community/CommunityPage";
 import MyAssignedTours from "../components/shared/DashboardComponents/MyAssignedTours/MyAssignedTours";
+import StoryDetails from "../components/shared/StoryDetails/StoryDetails";
 
 const router = createBrowserRouter([
   {
@@ -53,12 +54,16 @@ const router = createBrowserRouter([
         Component: Trips,
       },
       {
-        path: "/trips/:id",
+        path: "trips/:id",
         element: <PackageDetails></PackageDetails>,
       },
       {
-        path: "/guide/:guideId",
+        path: "guide/:guideId",
         Component: GuideDetailsPage,
+      },
+      {
+        path: "stories/:id",
+        Component: StoryDetails,
       },
     ],
   },

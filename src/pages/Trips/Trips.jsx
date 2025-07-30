@@ -3,7 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router";
 import { motion } from "motion/react";
+import useAxiosPublic from "../../components/hooks/useAxiosPublic";
 const Trips = () => {
+  const axiosPublic = useAxiosPublic();
   const {
     data: trips = [],
     isPending,
@@ -12,7 +14,7 @@ const Trips = () => {
   } = useQuery({
     queryKey: ["trips"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/trips");
+      const res = await axiosPublic.get("/trips");
       return res.data;
     },
   });
