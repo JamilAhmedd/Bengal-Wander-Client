@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const axiosPublic = axios.create({
-  // baseURL: "https://bengal-wander-server.vercel.app",
-  baseURL: "http://localhost:5000",
+  baseURL: "https://bengal-wander-server.vercel.app",
 });
 const useAxiosPublic = () => {
   return axiosPublic;

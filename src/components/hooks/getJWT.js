@@ -1,13 +1,9 @@
 import axios from "axios";
 
 const getJWT = async (user) => {
-  const res = await axios.post(
-    // "https://bengal-wander-server.vercel.app/jwt",
-    "http://localhost:5000/jwt",
-    {
-      email: user.email,
-    }
-  );
+  const res = await axios.post("https://bengal-wander-server.vercel.app/jwt", {
+    email: user.email,
+  });
 
   const token = res.data.token;
 
