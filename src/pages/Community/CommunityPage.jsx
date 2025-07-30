@@ -1,15 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  FacebookShareButton,
-  TwitterShareButton,
-  LinkedinShareButton,
-  WhatsappShareButton,
-  FacebookIcon,
-  TwitterIcon,
-  LinkedinIcon,
-  WhatsappIcon,
-} from "react-share";
+
 import useAxiosPublic from "../../components/hooks/useAxiosPublic";
 import StoryCard from "../../components/shared/StoryCard/StoryCard";
 

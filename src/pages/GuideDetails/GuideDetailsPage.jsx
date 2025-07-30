@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosPublic from "../../components/hooks/useAxiosPublic";
@@ -102,7 +102,7 @@ const GuideDetailsPage = () => {
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          {/* Header Section */}
+      
           <div className="bg-gradient-to-r from-emerald-500 to-teal-600 px-8 py-12 text-center">
             <div className="relative inline-block">
               <img
@@ -130,7 +130,6 @@ const GuideDetailsPage = () => {
             <p className="text-emerald-100 font-medium">Tour Guide</p>
           </div>
 
-          {/* Details Section */}
           <div className="p-8">
             <div className="grid gap-6">
               <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl">
@@ -188,7 +187,7 @@ const GuideDetailsPage = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
+           
             <button
               onClick={() => likeGuide()}
               disabled={liking}

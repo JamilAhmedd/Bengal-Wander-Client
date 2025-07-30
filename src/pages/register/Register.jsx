@@ -80,9 +80,9 @@ const Register = () => {
         title: "Image Upload Failed",
         text: "Could not upload profile picture. Please try again.",
       });
-      setProfile(""); // Clear profile URL if upload fails
+      setProfile(""); 
     } finally {
-      setIsUploadingImage(false); // Reset uploading state
+      setIsUploadingImage(false); 
     }
   };
 
