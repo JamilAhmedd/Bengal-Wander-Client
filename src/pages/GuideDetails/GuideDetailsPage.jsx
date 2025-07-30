@@ -35,7 +35,7 @@ const GuideDetailsPage = () => {
           icon: "success",
           confirmButtonColor: "#10B981",
         });
-        // Optionally refetch guide details
+
         queryClient.invalidateQueries({
           queryKey: ["guide-details", guide._id],
         });
@@ -102,8 +102,7 @@ const GuideDetailsPage = () => {
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-      
-          <div className="bg-gradient-to-r from-emerald-500 to-teal-600 px-8 py-12 text-center">
+          <div className=" bg-emerald-500  px-8 py-12 text-center">
             <div className="relative inline-block">
               <img
                 src={guide.photoURL}
@@ -187,7 +186,6 @@ const GuideDetailsPage = () => {
               </div>
             </div>
 
-           
             <button
               onClick={() => likeGuide()}
               disabled={liking}
@@ -202,6 +200,11 @@ const GuideDetailsPage = () => {
                 <>❤️ Like</>
               )}
             </button>
+            {guide.likes > 0 && (
+              <h1 className="mr-1 text-green-500 font-semibold">
+                total Likes: {guide.likes}
+              </h1>
+            )}
           </div>
         </div>
       </div>
