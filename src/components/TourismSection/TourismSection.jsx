@@ -104,7 +104,7 @@ const TourismSection = () => {
                         </span>
                         <button
                           onClick={() => navigate(`/trips/${pkg._id}`)}
-                          className="bg-green-600 text-white px-5 py-2 rounded-full hover:bg-green-700 transition-colors duration-300 shadow-md"
+                          className="bg-green-600 text-white px-5 py-2 rounded-xl hover:bg-green-700 transition-colors duration-300 shadow-md"
                         >
                           View Details
                         </button>
