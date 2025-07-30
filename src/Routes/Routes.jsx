@@ -29,6 +29,7 @@ import DashboardIndex from "../components/shared/DashboardComponents/DashboardIn
 import ManageUsers from "../components/shared/DashboardComponents/ManageUsers/ManageUsers";
 import GuideDetailsPage from "../pages/GuideDetails/GuideDetailsPage";
 import CommunityPage from "../pages/Community/CommunityPage";
+import MyAssignedTours from "../components/shared/DashboardComponents/MyAssignedTours/MyAssignedTours";
 
 const router = createBrowserRouter([
   {
@@ -117,6 +118,10 @@ const router = createBrowserRouter([
             <ManageUsers></ManageUsers>
           </AdminRoute>
         ),
+      },
+      {
+        path: "assigned-tours",
+        Component: MyAssignedTours,
       },
 
       {

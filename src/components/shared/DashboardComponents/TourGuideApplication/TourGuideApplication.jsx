@@ -3,15 +3,9 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../../AuthProvider/useAuth";
 
 // Mock useAuth hook for demo
-const useAuth = () => ({
-  user: {
-    uid: "demo-user-123",
-    displayName: "John Doe",
-    email: "john.doe@example.com",
-  },
-});
 
 const JoinTourGuide = () => {
   const { user } = useAuth();
@@ -223,7 +217,7 @@ const JoinTourGuide = () => {
                   )
                 ) {
                   reset();
-                  navigate("/dashboard/profile");
+                  navigate("/dashboard");
                   alert("Navigate back to profile");
                 }
               }}

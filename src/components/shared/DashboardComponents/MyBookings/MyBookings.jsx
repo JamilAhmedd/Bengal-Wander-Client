@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom"; // Commented out for demo
 
 import { useNavigate } from "react-router";
 import useAuth from "../../../../AuthProvider/useAuth";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { p } from "motion/react-client";
 
-// Mock data for demonstration - replace with actual API calls
+import Swal from "sweetalert2";
 
 const MyBookings = () => {
   const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
@@ -39,6 +38,29 @@ const MyBookings = () => {
     navigate(`/dashboard/payment/${booking.packageId}`);
   };
 
+  const handleRemove = async (booking) => {
+    const confirm = await Swal.fire({
+      title: "Are you sure?",
+      text: `Cancel your booking for ${booking.packageName}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, cancel it!",
+      cancelButtonText: "No, keep it",
+    });
+
+    if (confirm.isConfirmed) {
+      try {
+        const res = await axiosSecure.delete(`/bookings/${booking._id}`);
+        if (res.data?.deletedCount > 0) {
+          Swal.fire("Cancelled!", "Your booking has been removed.", "success");
+          queryClient.invalidateQueries(["my-bookings"]); // or your specific query key
+        }
+      } catch (error) {
+        console.error(error);
+        Swal.fire("Error", "Failed to cancel booking. Try again.", "error");
+      }
+    }
+  };
   const getStatusBadge = (status) => {
     const statusClasses = {
       pending: "badge badge-warning text-white",
@@ -123,7 +145,10 @@ const MyBookings = () => {
                           >
                             Pay
                           </button>
-                          <button className="btn btn-outline btn-error btn-sm">
+                          <button
+                            onClick={() => handleRemove(booking)}
+                            className="btn btn-outline btn-error btn-sm"
+                          >
                             Cancel
                           </button>
                         </>

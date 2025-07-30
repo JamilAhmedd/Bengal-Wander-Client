@@ -250,7 +250,7 @@ const EditStory = () => {
             ))}
           </div>
         </div>
-        }
+
         <div>
           <label className="label font-semibold text-emerald-800">
             Upload New Images

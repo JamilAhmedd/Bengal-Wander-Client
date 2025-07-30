@@ -10,13 +10,11 @@ import {
 } from "lucide-react";
 import logo from "../assets/brand-logo.png";
 import useAuth from "../AuthProvider/useAuth";
-import useAxiosSecure from "../components/hooks/useAxiosSecure";
+
 import useUserRole from "../components/hooks/useUserRole";
 
 const Dashboard = () => {
-  const { user, loading } = useAuth();
-
-  const axiosSecure = useAxiosSecure();
+  const { loading } = useAuth();
 
   const location = useLocation();
 

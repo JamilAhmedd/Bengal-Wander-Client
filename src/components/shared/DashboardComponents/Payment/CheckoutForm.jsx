@@ -1,14 +1,17 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../../AuthProvider/useAuth";
+
 import Swal from "sweetalert2";
 
 const CheckoutForm = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const { bookingId } = useParams();
@@ -34,6 +37,7 @@ const CheckoutForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!stripe || !elements) {
       return;
@@ -75,7 +79,7 @@ const CheckoutForm = () => {
         console.log("Payment succeeded!");
       }
     }
-    console.log(result);
+
     if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
       const paymentInfo = {
         cost: cost,
@@ -87,12 +91,16 @@ const CheckoutForm = () => {
         transactionId: result.paymentIntent.id,
       };
 
-      await axiosSecure.post("/payments", paymentInfo);
-      Swal.fire(
-        "Payment Successful",
-        "Your payment has been recorded!",
-        "success"
-      );
+      const res = await axiosSecure.post("/payments", paymentInfo);
+      if (res) {
+        setLoading(false);
+        navigate("/dashboard");
+        Swal.fire(
+          "Payment Successful",
+          "Your payment has been recorded!",
+          "success"
+        );
+      }
     }
   };
 
@@ -105,8 +113,8 @@ const CheckoutForm = () => {
         <CardElement className="p-2 border border-gray-400/30 rounded"></CardElement>
         <button
           type="submit"
-          className="btn btn-success w-full"
-          disabled={!stripe}
+          className="btn btn-success w-full disabled:bg-gray-600"
+          disabled={!stripe || loading}
         >
           pay ${cost}
         </button>
