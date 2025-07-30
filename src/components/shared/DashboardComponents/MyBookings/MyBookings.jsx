@@ -5,42 +5,10 @@ import { useNavigate } from "react-router";
 import useAuth from "../../../../AuthProvider/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { p } from "motion/react-client";
 
 // Mock data for demonstration - replace with actual API calls
-const mockBookings = [
-  {
-    id: 1,
-    packageName: "Golden Triangle Adventure",
-    tourGuideName: "John Smith",
-    tourDate: "2025-08-15",
-    tourPrice: 299,
-    status: "pending",
-  },
-  {
-    id: 2,
-    packageName: "Mountain Explorer Trek",
-    tourGuideName: "Sarah Johnson",
-    tourDate: "2025-09-10",
-    tourPrice: 450,
-    status: "in review",
-  },
-  {
-    id: 3,
-    packageName: "Coastal Discovery Tour",
-    tourGuideName: "Mike Wilson",
-    tourDate: "2025-07-20",
-    tourPrice: 199,
-    status: "accepted",
-  },
-  {
-    id: 4,
-    packageName: "Desert Safari Experience",
-    tourGuideName: "Emma Davis",
-    tourDate: "2025-08-05",
-    tourPrice: 350,
-    status: "rejected",
-  },
-];
+
 const MyBookings = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -68,7 +36,7 @@ const MyBookings = () => {
   if (isError) return <div>Failed to load bookings</div>;
 
   const handlePayment = async (booking) => {
-    navigate(`/dashboard/payment/${booking.id}`);
+    navigate(`/dashboard/payment/${booking.packageId}`);
   };
 
   const getStatusBadge = (status) => {
@@ -137,7 +105,7 @@ const MyBookings = () => {
             </thead>
             <tbody>
               {bookings.map((booking) => (
-                <tr key={booking.packageId} className="hover:bg-emerald-50">
+                <tr key={booking._id} className="hover:bg-emerald-50">
                   <td className="font-medium">{booking.packageName}</td>
                   <td>{booking.guide}</td>
                   <td>{formatDate(booking.tourDate)}</td>
