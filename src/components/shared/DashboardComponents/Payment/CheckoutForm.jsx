@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../../AuthProvider/useAuth";
+import Swal from "sweetalert2";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -75,6 +76,24 @@ const CheckoutForm = () => {
       }
     }
     console.log(result);
+    if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
+      const paymentInfo = {
+        cost: cost,
+        packageId: packageInfo._id,
+        packageName: packageInfo.packageName,
+        bookingId: bookingId,
+        userEmail: user?.email,
+        paymentDate: new Date().toISOString(),
+        transactionId: result.paymentIntent.id,
+      };
+
+      await axiosSecure.post("/payments", paymentInfo);
+      Swal.fire(
+        "Payment Successful",
+        "Your payment has been recorded!",
+        "success"
+      );
+    }
   };
 
   return (

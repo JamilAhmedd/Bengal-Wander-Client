@@ -17,7 +17,7 @@ const AdminDashboard = () => {
     name: user?.displayName,
     photoURL: user?.photoURL,
   });
-  const { data: stats = {}, refetch } = useQuery({
+  const { data: stats = {}, isFetching } = useQuery({
     queryKey: ["admin-stats"],
     queryFn: async () => {
       const res = await axiosSecure.get("/admin/stats");
@@ -64,31 +64,40 @@ const AdminDashboard = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4">
-        <StatCard
-          title="Total Payment"
-          value={`$${stats.totalPayment || 0}`}
-          color="emerald"
-        />
-        <StatCard
-          title="Tour Guides"
-          value={stats.totalGuides || 0}
-          color="blue"
-        />
-        <StatCard
-          title="Packages"
-          value={stats.totalPackages || 0}
-          color="purple"
-        />
-        <StatCard
-          title="Clients"
-          value={stats.totalClients || 0}
-          color="rose"
-        />
-        <StatCard
-          title="Stories"
-          value={stats.totalStories || 0}
-          color="yellow"
-        />
+        <div className="stat bg-white border-l-4 border-emerald-400">
+          <div className="stat-title text-gray-500">Total Payment</div>
+          <div className="stat-value text-emerald-600">
+            ${stats.totalPayment || 0}
+          </div>
+        </div>
+
+        <div className="stat bg-white border-l-4 border-blue-400">
+          <div className="stat-title text-gray-500">Tour Guides</div>
+          <div className="stat-value text-blue-600">
+            {stats.totalGuides || 0}
+          </div>
+        </div>
+
+        <div className="stat bg-white border-l-4 border-purple-400">
+          <div className="stat-title text-gray-500">Packages</div>
+          <div className="stat-value text-purple-600">
+            {stats.totalPackages || 0}
+          </div>
+        </div>
+
+        <div className="stat bg-white border-l-4 border-rose-400">
+          <div className="stat-title text-gray-500">Clients</div>
+          <div className="stat-value text-rose-600">
+            {stats.totalClients || 0}
+          </div>
+        </div>
+
+        <div className="stat bg-white border-l-4 border-yellow-400">
+          <div className="stat-title text-gray-500">Stories</div>
+          <div className="stat-value text-yellow-600">
+            {stats.totalStories || 0}
+          </div>
+        </div>
       </div>
 
       {/* Admin Info */}
@@ -163,11 +172,5 @@ const AdminDashboard = () => {
 };
 
 // Stat card component
-const StatCard = ({ title, value, color }) => (
-  <div className={`stat bg-white border-l-4 border-${color}-400`}>
-    <div className="stat-title text-gray-500">{title}</div>
-    <div className={`stat-value text-${color}-600`}>{value}</div>
-  </div>
-);
 
 export default AdminDashboard;
