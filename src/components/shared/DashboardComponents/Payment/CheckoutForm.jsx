@@ -23,7 +23,7 @@ const CheckoutForm = () => {
   const { data: packageInfo = {}, isPending } = useQuery({
     queryKey: ["bookings", bookingId],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/trips/${bookingId}`);
+      const res = await axiosPublic.get(`/bookings/${bookingId}`);
       return res.data;
     },
   });
@@ -37,7 +37,6 @@ const CheckoutForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     if (!stripe || !elements) {
       return;
     }
@@ -70,6 +69,7 @@ const CheckoutForm = () => {
       },
     });
     if (result.error) {
+      setLoading(false);
       console.log(result.error.message);
     }
 
@@ -83,10 +83,13 @@ const CheckoutForm = () => {
         paymentDate: new Date().toISOString(),
         transactionId: result.paymentIntent.id,
       };
-
+      setLoading(false);
       const res = await axiosSecure.post("/payments", paymentInfo);
       if (res) {
-        setLoading(false);
+        console.log(res);
+        await axiosSecure.patch(`/assigned-tours/${bookingId}`, {
+          status: "in-review",
+        });
         navigate("/dashboard");
         Swal.fire(
           "Payment Successful",

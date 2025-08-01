@@ -35,7 +35,7 @@ const MyBookings = () => {
   if (isError) return <div>Failed to load bookings</div>;
 
   const handlePayment = async (booking) => {
-    navigate(`/dashboard/payment/${booking.packageId}`);
+    navigate(`/dashboard/payment/${booking}`);
   };
 
   const handleRemove = async (booking) => {
@@ -53,7 +53,7 @@ const MyBookings = () => {
         const res = await axiosSecure.delete(`/bookings/${booking._id}`);
         if (res.data?.deletedCount > 0) {
           Swal.fire("Cancelled!", "Your booking has been removed.", "success");
-          queryClient.invalidateQueries(["my-bookings"]); // or your specific query key
+          queryClient.invalidateQueries(["my-bookings"]);
         }
       } catch (error) {
         console.error(error);
@@ -64,7 +64,7 @@ const MyBookings = () => {
   const getStatusBadge = (status) => {
     const statusClasses = {
       pending: "badge badge-warning text-white",
-      "in review": "badge badge-info text-white",
+      "in-review": "badge badge-info text-white",
       accepted: "badge badge-success text-white",
       rejected: "badge badge-error text-white",
     };
@@ -75,7 +75,6 @@ const MyBookings = () => {
       </span>
     );
   };
-
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -141,7 +140,7 @@ const MyBookings = () => {
                         <>
                           <button
                             className="btn btn-success btn-sm"
-                            onClick={() => handlePayment(booking)}
+                            onClick={() => handlePayment(booking._id)}
                           >
                             Pay
                           </button>
@@ -153,7 +152,7 @@ const MyBookings = () => {
                           </button>
                         </>
                       )}
-                      {booking.status === "in review" && (
+                      {booking.status === "in_review" && (
                         <span className="text-sm text-gray-500 italic">
                           Under Review
                         </span>
