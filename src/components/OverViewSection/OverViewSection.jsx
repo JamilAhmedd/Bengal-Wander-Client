@@ -3,7 +3,7 @@ import React from "react";
 
 const OverviewSection = () => {
   return (
-    <div className="my-40">
+    <div className="my-36">
       <h1 className="font-extrabold text-5xl font-poppins text-center mb-12">
         We Are Bengal Wander
       </h1>

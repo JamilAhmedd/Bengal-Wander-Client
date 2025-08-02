@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosPublic from "../../components/hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import GuideStories from "../../components/shared/GuideStories/GuideStories";
 
 const GuideDetailsPage = () => {
   const { guideId } = useParams();
@@ -208,6 +209,7 @@ const GuideDetailsPage = () => {
           </div>
         </div>
       </div>
+      <GuideStories email={guide.email}></GuideStories>
     </div>
   );
 };

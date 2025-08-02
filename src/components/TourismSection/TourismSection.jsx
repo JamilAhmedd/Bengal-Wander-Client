@@ -36,7 +36,7 @@ const TourismSection = () => {
   };
 
   return (
-    <section className="py-12 mt-24 font-poppins">
+    <section className="py-12 mt-36 font-poppins">
       <div className="container mx-auto">
         <h2 className="text-5xl font-extrabold text-center text-gray-800 mb-12">
           Discover Bangladesh

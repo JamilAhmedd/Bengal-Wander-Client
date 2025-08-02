@@ -132,7 +132,7 @@ const AddStory = () => {
         title: data.title.trim(),
         content: data.content.trim(),
         images: imageUrls,
-        authorEmail: user.displayName,
+        authorEmail: user.email,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         status: "published",
@@ -240,7 +240,6 @@ const AddStory = () => {
             </label>
           </div>
 
-          {/* Content Textarea */}
           <div>
             <label className="label">
               <span className="label-text font-semibold text-emerald-800">
