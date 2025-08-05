@@ -19,7 +19,7 @@ const Dashboard = () => {
   const location = useLocation();
 
   const { role, roleLoading } = useUserRole();
-
+  console.log(role);
   if (!role && !roleLoading) {
     return;
   }

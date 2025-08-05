@@ -21,7 +21,9 @@ const Login = () => {
   const onSubmit = (data) => {
     logIn(data.email, data.password)
       .then(async (res) => {
+        console.log(res.user);
         await getJWT(res.user);
+
         navigate(from, { replace: true });
         Swal.fire({
           icon: "success",

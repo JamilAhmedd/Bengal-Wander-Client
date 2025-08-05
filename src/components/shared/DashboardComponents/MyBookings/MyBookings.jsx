@@ -24,6 +24,7 @@ const MyBookings = () => {
     },
   });
 
+  console.log(data);
   useEffect(() => {
     if (data) {
       setBookings(data);

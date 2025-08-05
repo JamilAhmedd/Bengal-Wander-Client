@@ -19,15 +19,16 @@ const CheckoutForm = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const [error, setError] = useState("");
-
+  console.log(bookingId);
   const { data: packageInfo = {}, isPending } = useQuery({
     queryKey: ["bookings", bookingId],
+
     queryFn: async () => {
       const res = await axiosPublic.get(`/bookings/${bookingId}`);
       return res.data;
     },
   });
-
+  console.log(packageInfo);
   if (isPending) {
     return <span className="loading loading-spinner loading-xl"> </span>;
   }
