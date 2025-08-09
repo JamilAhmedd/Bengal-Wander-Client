@@ -47,9 +47,6 @@ Bengal Wander is a MERN stack travel agency website promoting Bangladesh tourism
 - Stripe account
 - Google OAuth credentials
 
-### Live Link
-
-- https://bengal-wander.web.app/
 
 ### Installation
 
