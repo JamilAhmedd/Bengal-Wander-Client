@@ -41,6 +41,20 @@ Bengal Wander is a MERN stack travel agency website promoting Bangladesh tourism
 ### Prerequisites
 - Node.js (v16 or higher)
 - MongoDB (local or Atlas)
-- Cloudinary account
 - Stripe account
 - Google OAuth credentials
+
+### Live Link
+
+- https://bengal-wander.web.app/
+
+### Installation
+
+1. Clone the repo:
+
+   
+   git clone https://github.com/What6499/Bengal-Wander-Client.git
+   cd Bengal-Wander-Client
+
+2. Open it in you IDE or terminal.
+3. Run "npm i" and the necessary packages will be installed automatically.
