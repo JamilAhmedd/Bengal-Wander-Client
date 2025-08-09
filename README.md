@@ -2,6 +2,9 @@
 
 Bengal Wander is a MERN stack travel agency website promoting Bangladesh tourism. It offers a responsive platform for exploring destinations, culture, cuisine, and activities with secure user authentication and dynamic tour management.
 
+##  Live URL
+
+[🔗 Click here to visit the live site](https://bengal-wander.web.app/)
 ## Main Technologies Used
 - **Frontend**: React, React Router, Tailwind CSS, DaisyUI, Tanstack Query
 - **Backend**: Node.js, Express.js
