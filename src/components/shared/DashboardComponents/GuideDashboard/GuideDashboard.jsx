@@ -94,16 +94,16 @@ const GuideDashboard = () => {
       </h2>
 
       {/********************** Profile Card ****************************/}
-      <div className="bg-white rounded-lg shadow p-6 flex items-center gap-6">
+      <div className="bg-base-100 rounded-lg shadow p-6 flex items-center gap-6">
         <div className="avatar">
-          <div className="w-24 h-24 rounded-full ring ring-emerald-300">
+          <div className="w-24 h-24 rounded-full ">
             <img src={user?.photoURL} alt={user?.displayName} />
           </div>
         </div>
-        <div className="flex-1 space-y-1">
+        <div className="flex-1 space-y-1 text-neutral">
           <h3 className="text-xl font-semibold">{user?.displayName}</h3>
-          <p className="text-gray-600">Email: {user?.email}</p>
-          <p className="text-gray-600 capitalize">Role: {role}</p>
+          <p className="">Email: {user?.email}</p>
+          <p className=" capitalize">Role: {role}</p>
         </div>
         <button
           onClick={() => setIsEditOpen(true)}
@@ -117,7 +117,7 @@ const GuideDashboard = () => {
         <div className="p-6">
           {/* Modal Header */}
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-emerald-800">Edit Profile</h3>
+            <h3 className="text-xl font-bold text-neutral">Edit Profile</h3>
             <button
               type="button"
               onClick={() => setIsEditOpen(false)}

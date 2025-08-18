@@ -1,18 +1,35 @@
 @import "tailwindcss";
-@plugin "daisyui";
-
-@theme {
-  --color-primary: #588157;
-  --color-secondary: #a3b18a;
-  --color-neutral: #dad7cd;
-  --color-dark: #3a5a40;
-  --color-deep: #344e41;
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
 }
 
-@theme dark {
-  --color-primary: #a3b18a;
-  --color-secondary: #588157;
-  --color-neutral: #344e41;
-  --color-dark: #dad7cd;
-  --color-deep: #f5f5f5;
+@plugin "daisyui/theme" {
+  name: light;
+  default: true;
+  --color-primary: #588157; /* brand green - for main buttons, highlights */
+  --color-secondary: #a3b18a; /* soft green - for secondary buttons, subtle accents */
+  --color-accent: #3a5a40; /* dark green accents - for important interactive elements, dark highlights */
+  --color-neutral: #344e41; /* text / neutral dark - for primary text, icons */
+  --color-base-100: #ffffff; /* clean white background - for main body background */
+  --color-base-200: #f0f4f0; /* light grey/off-white - for card backgrounds, subtle sections */
+  --color-base-300: #e0e4e0; /* even lighter grey/off-white - for borders, separators */
+  --color-info: #5b90d2; /* a friendly blue for informational messages, badges */
+  --color-success: #7dae6b; /* a brighter green for success messages, confirmations */
+  --color-warning: #f8c95c; /* a golden yellow for warnings, alerts */
+  --color-error: #da6b6b; /* a soft red for errors, destructive actions */
+}
+@plugin "daisyui/theme" {
+  name: dark;
+  prefersdark: true;
+  --color-primary: #588157; /* softer green - for main buttons, highlights */
+  --color-secondary: #a3b18a; /* deeper accent - for secondary buttons, subtle accents */
+  --color-accent: #3a5a40; /* muted dark green accent - for important interactive elements */
+  --color-neutral: #dad7cd; /* light neutral text - for primary text, icons */
+  --color-base-100: #1a1a1a; /* near black background - for main body background */
+  --color-base-200: #2b2b2b; /* a slightly lighter black/dark grey - for card backgrounds, subtle sections */
+  --color-base-300: #3a3a3a; /* a dark grey for borders, separators */
+  --color-info: #5b90d2; /* a friendly blue */
+  --color-success: #7dae6b; /* a brighter green */
+  --color-warning: #f8c95c; /* a golden yellow */
+  --color-error: #da6b6b; /* a soft red */
 }

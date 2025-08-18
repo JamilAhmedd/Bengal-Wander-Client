@@ -57,7 +57,7 @@ const Profile = () => {
           </li>
           <li className="mt-4">
             <NavLink
-              to="/dashboard/"
+              to="/dashboard/profile"
               className="block px-4 py-2 text-black hover:bg-gray-100/60  hover:backdrop-blur-md rounded-md"
             >
               Dashboard

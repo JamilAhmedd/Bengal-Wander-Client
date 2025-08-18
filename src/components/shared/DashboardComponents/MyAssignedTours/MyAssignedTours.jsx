@@ -60,16 +60,16 @@ const MyAssignedTours = () => {
   }
 
   return (
-    <div className="overflow-x-auto bg-white p-6 rounded-xl shadow">
-      <h2 className="text-2xl font-bold mb-6 text-gray-700">
+    <div className="overflow-x-auto bg-base-100 p-6 rounded-xl shadow">
+      <h2 className="text-2xl font-bold mb-6 text-neutral">
         My Assigned Tours
       </h2>
       {assignedTours.length === 0 ? (
-        <p className="text-center text-gray-500">No assigned tours yet.</p>
+        <p className="text-center text-neutral">No assigned tours yet.</p>
       ) : (
-        <table className="table w-full">
+        <table className="table w-full text-neutral">
           <thead>
-            <tr className="bg-emerald-100 text-gray-700">
+            <tr className=" text-neutral">
               <th>#</th>
               <th>Package Name</th>
               <th>Tourist</th>
@@ -79,7 +79,7 @@ const MyAssignedTours = () => {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="">
             {assignedTours.map((tour, index) => (
               <tr key={tour._id} className="hover:bg-gray-50">
                 <td>{index + 1}</td>
