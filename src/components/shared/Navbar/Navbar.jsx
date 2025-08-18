@@ -14,8 +14,8 @@ const Navbar = () => {
         end
         className={({ isActive }) =>
           isActive
-            ? "text-green-800 font-semibold border-b-2 border-green-600 pb-1"
-            : "text-gray-600 hover:text-green-800 transition"
+            ? "text-primary font-semibold border-b-2 border-primary pb-1"
+            : "text-neutral hover:text-primary transition"
         }
       >
         Home
@@ -25,8 +25,8 @@ const Navbar = () => {
         to="/community"
         className={({ isActive }) =>
           isActive
-            ? "text-green-800 font-semibold border-b-2 border-green-600 pb-1"
-            : "text-gray-600 hover:text-green-800 transition"
+            ? "text-primary font-semibold border-b-2 border-primary pb-1"
+            : "text-neutral hover:text-primary transition"
         }
       >
         Community
@@ -37,8 +37,8 @@ const Navbar = () => {
           to="/trips"
           className={({ isActive }) =>
             isActive
-              ? "text-green-800 font-semibold border-b-2 border-green-600 pb-1"
-              : "text-gray-600 hover:text-green-800 transition"
+              ? "text-primary font-semibold border-b-2 border-primary pb-1"
+              : "text-neutral hover:text-primary transition"
           }
         >
           Trips
@@ -49,8 +49,8 @@ const Navbar = () => {
         to="/about-us"
         className={({ isActive }) =>
           isActive
-            ? "text-green-800 font-semibold border-b-2 border-green-600 pb-1"
-            : "text-gray-600 hover:text-green-800 transition"
+            ? "text-primary font-semibold border-b-2 border-primary pb-1"
+            : "text-neutral hover:text-primary transition"
         }
       >
         About Us
@@ -59,7 +59,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="bg-white shadow-md px-6 py-4 sticky top-0 z-50">
+    <nav className="bg-[#3a5a40] shadow-md px-6 py-4 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center ">
           <img className="size-18" src={logo} alt="" />
@@ -74,7 +74,7 @@ const Navbar = () => {
             <Profile></Profile>
           ) : (
             <Link to="auth/login">
-              <button className="px-4 w-max py-2 cursor-pointer rounded-md  bg-emerald-400 text-white border-none hover:bg-emerald-500 flex items-center justify-center">
+              <button className="px-4 w-max py-2 cursor-pointer rounded-md  bg-[#588157] text-white border-none hover:bg-emerald-500 flex items-center justify-center">
                 Sign In
               </button>
             </Link>
