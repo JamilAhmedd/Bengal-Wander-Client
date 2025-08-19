@@ -59,7 +59,7 @@ const Navbar = () => {
   );
 
   return (
-  <nav className="bg-accent dark:bg-base-100/80  backdrop-blur-2xl  shadow-md px-6 py-4  sticky top-0 z-50">
+    <nav className="bg-accent dark:bg-base-100/80  backdrop-blur-2xl  shadow-md px-6 py-4  sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center ">
           <img className="size-18" src={logo} alt="" />

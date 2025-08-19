@@ -24,10 +24,10 @@ const OverviewSection = () => {
 
           {/* Text */}
           <div className="flex-1">
-            <h2 className="text-3xl md:text-4xl font-bold text-deep mb-4 dark:text-neutral">
+            <h2 className="text-3xl text-success md:text-4xl font-bold text-deep mb-4 ">
               Discover the Beauty of Bangladesh
             </h2>
-            <p className="text-gray-600 text-lg mb-6 leading-relaxed dark:text-secondary">
+            <p className=" text-lg mb-6 leading-relaxed text-neutral">
               Our platform connects you with the most breathtaking destinations,
               curated tour packages, and experienced local guides. Whether
               you're seeking coastal serenity, lush hills, or cultural heritage,
