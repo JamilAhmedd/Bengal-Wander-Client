@@ -14,8 +14,8 @@ const Navbar = () => {
         end
         className={({ isActive }) =>
           isActive
-            ? "text-neutral font-semibold border-b-2 border-primary pb-1"
-            : " text-neutral  transition"
+            ? "text-white font-semibold border-b-2 border-secondary pb-1"
+            : " text-white  transition"
         }
       >
         Home
@@ -25,8 +25,8 @@ const Navbar = () => {
         to="/community"
         className={({ isActive }) =>
           isActive
-            ? "text-neutral font-semibold border-b-2 border-primary pb-1"
-            : " text-neutral  transition"
+            ? "text-white font-semibold border-b-2 border-secondary pb-1"
+            : " text-white  transition"
         }
       >
         Community
@@ -37,8 +37,8 @@ const Navbar = () => {
           to="/trips"
           className={({ isActive }) =>
             isActive
-              ? "text-neutral font-semibold border-b-2 border-primary pb-1"
-              : " text-neutral  transition"
+              ? "text-white font-semibold border-b-2 border-secondary pb-1"
+              : " text-white  transition"
           }
         >
           Trips
@@ -49,8 +49,8 @@ const Navbar = () => {
         to="/about-us"
         className={({ isActive }) =>
           isActive
-            ? "text-neutral font-semibold border-b-2 border-primary pb-1"
-            : " text-neutral  transition"
+            ? "text-white font-semibold border-b-2 border-secondary pb-1"
+            : " text-white  transition"
         }
       >
         About Us
@@ -59,7 +59,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="bg-accent dark:bg-base-100/80  backdrop-blur-2xl  shadow-md px-6 py-4  sticky top-0 z-50">
+    <nav className="bg-primary dark:bg-base-100/80  backdrop-blur-2xl  shadow-md px-6 py-4  sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center ">
           <img className="size-18" src={logo} alt="" />

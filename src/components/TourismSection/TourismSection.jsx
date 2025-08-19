@@ -37,22 +37,22 @@ const TourismSection = () => {
 
   return (
     <section className="py-12 mt-36 font-poppins">
-      <div className="container mx-auto">
-        <h2 className="text-5xl font-extrabold text-center text-gray-800 mb-12">
+      <div className="container  mx-auto">
+        <h2 className="text-5xl font-extrabold text-center text-primary mb-12">
           Discover Bangladesh
         </h2>
 
         <Tabs
-          selectedTabClassName="bg-green-300/60"
-          className="rounded-xl border border-gray-400/30 bg-white"
+          selectedTabClassName="bg-primary dark:bg-base-100 text-white dark:text-neutral "
+          className="rounded-xl border border-gray-400/30 bg-base-200"
         >
-          <TabList className="flex p-[2px] rounded-xl border-b border-gray-200/60">
-            <Tab className="flex-1 rounded-xl focus:outline-0 text-center py-4 px-6 cursor-pointer text-lg font-semibold transition-all duration-300 text-gray-700 hover:bg-green-100 hover:text-green-800">
+          <TabList className="flex p-4 space-x-2 rounded-xl border-b  border-gray-200/60">
+            <Tab className="flex-1 rounded-xl  focus:outline-0 text-center py-4 px-6 cursor-pointer text-lg font-semibold transition-all hover:bg-base-300 duration-300    ">
               Our Packages
             </Tab>
             <Tab
               className={
-                "flex-1 rounded-xl focus:outline-0 text-center py-4 px-6 cursor-pointer text-lg font-semibold transition-all duration-300 text-gray-700 hover:bg-green-100 hover:text-green-800"
+                "flex-1 rounded-xl focus:outline-0 text-center py-4 px-6 cursor-pointer text-lg font-semibold transition-all duration-300 hover:bg-base-300   "
               }
             >
               Our Guides
@@ -77,11 +77,11 @@ const TourismSection = () => {
                 No packages available at the moment. Please check back later!
               </p>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {packages.map((pkg) => (
                   <div
                     key={pkg._id}
-                    className="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-102 transition-all duration-300"
+                    className="bg-base-100 rounded-xl shadow-md overflow-hidden transform hover:scale-102 transition-all duration-300"
                   >
                     <img
                       src={pkg.gallery[0] || "/src/assets/brand-logo.png"}
@@ -104,7 +104,7 @@ const TourismSection = () => {
                         </span>
                         <button
                           onClick={() => navigate(`/trips/${pkg._id}`)}
-                          className="bg-green-600 text-white px-5 py-2 rounded-xl hover:bg-green-700 transition-colors duration-300 shadow-md"
+                          className="bg-primary text-white px-5 py-2 rounded-xl hover:bg-secondary transition-colors duration-300 shadow-md"
                         >
                           View Details
                         </button>
