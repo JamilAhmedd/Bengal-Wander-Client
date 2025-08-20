@@ -58,10 +58,10 @@ const CommunityPage = () => {
       <div className=" bg-primary dark:bg-base-200 rounded-b-2xl text-white">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-4xl dark:text-neutral font-[Bebas_Neue] tracking-wide md:text-5xl font-bold mb-4">
               Community Stories
             </h1>
-            <p className="text-xl text-emerald-100 max-w-2xl mx-auto">
+            <p className="text-xl dark:text-neutral font-semibold font-[Lora] max-w-2xl mx-auto">
               Discover amazing travel experiences shared by our community
               members from Bangladesh.
             </p>

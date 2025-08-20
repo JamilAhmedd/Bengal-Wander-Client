@@ -83,7 +83,7 @@ const StoryCard = ({ story }) => {
             </WhatsappShareButton>
           </div>
           <a
-            className="btn text-white btn-primary font-[Lora] font-bold hover:btn-secondary"
+            className="btn shadow-none text-white btn-primary font-[Lora] font-bold hover:btn-secondary"
             href={`/stories/${story._id}`}
           >
             View

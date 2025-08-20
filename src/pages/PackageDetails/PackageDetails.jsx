@@ -90,8 +90,8 @@ const PackageDetails = () => {
     }
   };
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-base-100 py-8">
+      <div className="container mx-auto   ">
         {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -99,8 +99,8 @@ const PackageDetails = () => {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <div className="card bg-white shadow-2xl overflow-hidden">
-            <div className="card-body p-0">
+          <div className="card  shadow-lg overflow-hidden">
+            <div className="  ">
               <div className="relative">
                 <div className="aspect-video bg-gray-200 overflow-hidden">
                   {pkg.gallery && pkg.gallery.length > 0 && (
@@ -136,33 +136,34 @@ const PackageDetails = () => {
               </div>
 
               {/* Package Header */}
-              <div className="p-8">
+              <div className="p-8 bg-white dark:bg-base-200">
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
                   <div className="flex-1">
-                    <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                    <h1 className="text-4xl font-bold text-neutral mb-4">
                       {pkg.packageName}
                     </h1>
                     <div className="flex flex-wrap items-center gap-4 text-gray-600">
                       <div className="flex items-center gap-2">
-                        <MapPin className="w-5 h-5 text-emerald-600" />
-                        <span>{pkg.location}</span>
+                        <MapPin className="w-5 h-5 text-success" />
+                        <span className="text-neutral">{pkg.location}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Clock className="w-5 h-5 text-emerald-600" />
-                        <span>{pkg.tourPlan?.length} Days</span>
+                        <Clock className="w-5 h-5 text-success" />
+                        <span className="text-neutral">
+                          {pkg.tourPlan?.length} Days
+                        </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Users className="w-5 h-5 text-emerald-600" />
-                        <span>{pkg.maxPeople}</span>
+                        <Users className="w-5 h-5 text-success" />
+                        <span className="text-neutral">{pkg.maxPeople}</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="text-right">
-                    <div className="text-3xl font-bold text-emerald-600">
+                  <div className="text-right text-neutral">
+                    <div className="text-3xl border-b-2 border-b-base-accent  slashed-zero tabular-nums font-bold text-neutral">
                       ${pkg.price}
                     </div>
-                    <div className="text-gray-500">Family</div>
                   </div>
                 </div>
               </div>
@@ -178,13 +179,15 @@ const PackageDetails = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="card bg-white shadow-xl"
+              className="card bg-white dark:bg-base-200 shadow-lg"
             >
-              <div className="card-body">
-                <h2 className="card-title text-2xl text-gray-900 mb-4">
+              <div className="card-body ">
+                <h2 className="card-title text-2xl text-neutral mb-4">
                   About This Tour
                 </h2>
-                <p className="text-gray-700 leading-relaxed">{pkg.aboutTour}</p>
+                <p className=" text-lg font-medium  text-neutral/70">
+                  {pkg.aboutTour}
+                </p>
               </div>
             </motion.div>
 
@@ -193,28 +196,30 @@ const PackageDetails = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="card bg-white shadow-xl"
+              className="card bg-white dark:bg-base-200 shadow-lg"
             >
               <div className="card-body">
-                <h2 className="card-title text-2xl text-gray-900 mb-6">
+                <h2 className="card-title text-2xl text-neutral mb-6">
                   Tour Planning
                 </h2>
                 <div className="space-y-4">
                   {pkg.tourPlan?.map((item, idx) => (
                     <div
                       key={idx}
-                      className="flex gap-4 p-4 bg-emerald-50 rounded-lg"
+                      className="flex gap-4 items-center p-4 bg-base- dark:bg-base-300 rounded-lg"
                     >
-                      <div className="flex-shrink-0">
-                        <div className="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-semibold text-sm">
+                      <div className="flex-shrink-0  ">
+                        <div className="w-8 h-8 bg-success text-white rounded-full flex items-center justify-center font-semibold text-sm">
                           {idx + 1}
                         </div>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-emerald-900 mb-1">
+                        <p className=" font-[Lora] text-lg tracking-wider font-bold  text-neutral mb-1">
                           {item.day}
-                        </h3>
-                        <p className="text-gray-700">{item.activities}</p>
+                        </p>
+                        <p className="text-neutral/80 font-[Lora] tracking-wide font-semibold">
+                          {item.activities}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -227,10 +232,10 @@ const PackageDetails = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="card bg-white shadow-xl"
+              className="card dark:bg-base-200 shadow-xl"
             >
               <div className="card-body">
-                <h2 className="card-title text-2xl text-gray-900 mb-6">
+                <h2 className="card-title text-2xl text-neutral mb-6">
                   Meet Our Tour Guides
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -238,11 +243,11 @@ const PackageDetails = () => {
                     <div
                       key={guide._id}
                       onClick={() => navigate(`/guide/${guide._id}`)}
-                      className="card bg-gradient-to-br from-emerald-50 to-teal-50 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
+                      className="card bg-base-300  shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
                     >
                       <div className="card-body items-center text-center p-6">
                         <div className="avatar">
-                          <div className="w-20 h-20 rounded-full ring ring-emerald-200 ring-offset-2">
+                          <div className="w-20 h-20 rounded-full ">
                             <img
                               src={guide.photoURL}
                               alt={guide.name}
@@ -250,12 +255,14 @@ const PackageDetails = () => {
                             />
                           </div>
                         </div>
-                        <h3 className="card-title text-lg text-gray-900 mt-3">
+                        <h3 className="card-title text-lg text-neutral font-[Lora] capitalize tracking-widest] mt-3">
                           {guide.name}
                         </h3>
                         <div className="flex items-center gap-1 text-yellow-500">
                           <Star className="w-4 h-4 fill-current" />
-                          <span className="text-sm text-gray-600">4.9</span>
+                          <span className="text-sm text-neutral/80 font-bold">
+                            4.9
+                          </span>
                         </div>
                       </div>
                     </div>

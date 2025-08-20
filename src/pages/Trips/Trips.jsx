@@ -49,8 +49,9 @@ const Trips = () => {
               ease: "easeOut",
               delay: index * 0.1,
             }}
-            className="bg-base-200 rounded-xl shadow-lg p-6 border border-base-300
-        transform transition-transform duration-300 hover:scale-[1.03] hover:shadow-xl"
+            className="bg-base-200 relative rounded-xl shadow-lg p-6 border border-base-300
+    transform transition-transform duration-300 hover:scale-[1.03] hover:shadow-xl 
+    flex flex-col" // ⬅️ make card a flex container
           >
             <div className="relative overflow-hidden rounded-lg">
               <img
@@ -60,22 +61,29 @@ const Trips = () => {
               />
             </div>
 
-            <h2 className="text-xl font-bold mt-4 text-neutral leading-tight">
-              {trip.packageName}
-            </h2>
-            <p className=" badge badge-success mt-1 text-white  text-sm mb-2">
-              {trip.location}
-            </p>
-            <p className="text-neutral text-sm mb-4 line-clamp-3">
-              {trip.aboutTour?.slice(0, 150)}...
-            </p>
-            <div className="flex justify-end mt-auto">
-              <Link
-                to={`/trips/${trip._id}`}
-                className="inline-block px-6 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-emerald-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50"
-              >
-                View Details
-              </Link>
+            <div className="flex flex-col flex-1">
+              {" "}
+              {/* ⬅️ let content expand */}
+              <h2 className="text-xl font-bold mt-4 text-neutral leading-tight">
+                {trip.packageName}
+              </h2>
+              <p className="badge badge-success rounded-sm mt-1 text-white text-sm mb-2">
+                {trip.location}
+              </p>
+              <p className="text-neutral text-sm mb-4 line-clamp-3">
+                {trip.aboutTour?.slice(0, 150)}...
+              </p>
+              {/* Push button to the bottom */}
+              <div className="mt-auto flex justify-end">
+                <Link
+                  to={`/trips/${trip._id}`}
+                  className="block px-6 py-2 bg-primary text-white font-semibold rounded-lg 
+        hover:bg-secondary transition-colors duration-200 
+        focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50"
+                >
+                  View Details
+                </Link>
+              </div>
             </div>
           </motion.div>
         ))}
