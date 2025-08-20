@@ -64,22 +64,22 @@ const Trips = () => {
             <div className="flex flex-col flex-1">
               {" "}
               {/* ⬅️ let content expand */}
-              <h2 className="text-xl font-bold mt-4 text-neutral leading-tight">
+              <h2 className=" font-bold mt-4 text-neutral font-[Bebas_Neue] tracking-wide text-2xl leading-tight">
                 {trip.packageName}
               </h2>
-              <p className="badge badge-success rounded-sm mt-1 text-white text-sm mb-2">
+              <p className="badge badge-success font-[Lora] font-bold rounded-sm mt-1 text-white text-sm mb-2">
                 {trip.location}
               </p>
-              <p className="text-neutral text-sm mb-4 line-clamp-3">
+              <p className="text-neutral font-[Lora] font-bold mb-4 line-clamp-3">
                 {trip.aboutTour?.slice(0, 150)}...
               </p>
               {/* Push button to the bottom */}
               <div className="mt-auto flex justify-end">
                 <Link
                   to={`/trips/${trip._id}`}
-                  className="block px-6 py-2 bg-primary text-white font-semibold rounded-lg 
+                  className="block px-6 py-2 bg-primary font-[Lora]  text-white font-bold rounded-lg 
         hover:bg-secondary transition-colors duration-200 
-        focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50"
+        "
                 >
                   View Details
                 </Link>

@@ -48,17 +48,17 @@ const Profile = () => {
       </button>
 
       {dropdownOpen && (
-        <ul className="absolute right-0 mt-8 z-[100] p-2 w-60 border border-gray-400/30 bg-white/60 backdrop-blur-sm rounded-box ">
+        <ul className="absolute right-0 mt-8 z-[100] p-2 w-60 border border-base-300 bg-base-300 backdrop-blur-sm rounded-box ">
           <li className="px-3 py-2 border-b">
-            <p className="text-sm font-semibold text-gray-500">
+            <p className="text-sm font-semibold text-neutral">
               {user.displayName}
             </p>
-            <p className="text-xs text-gray-500">{user.email}</p>
+            <p className="text-xs text-neutral">{user.email}</p>
           </li>
           <li className="mt-4">
             <NavLink
               to="/dashboard/profile"
-              className="block px-4 py-2 text-black hover:bg-gray-100/60  hover:backdrop-blur-md rounded-md"
+              className="block px-4 py-2  dark:text-neutral hover:bg-gray-100/60  hover:backdrop-blur-md rounded-md"
             >
               Dashboard
             </NavLink>

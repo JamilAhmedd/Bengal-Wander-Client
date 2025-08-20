@@ -7,7 +7,7 @@ const OverviewSection = () => {
       <h1 className="font-extrabold text-primary font-[Bebas_Neue] text-5xl font-poppins text-center mb-12">
         We Are Bengal Wander
       </h1>
-      <section className="bg-base-200 border border-base-300 rounded-xl py-16 px-4 md:px-10 lg:px-20 dark:bg-base-100 dark:border-gray-600/30">
+      <section className="bg-base-200 border border-base-300 rounded-xl py-16 px-4 md:px-10 lg:px-20  ">
         <div className="container mx-auto px-4 flex gap-10 items-center">
           {/* Image */}
           <div className="h-full flex-1 w-full">

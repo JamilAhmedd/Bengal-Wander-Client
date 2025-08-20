@@ -7,7 +7,7 @@ import { motion } from "motion/react";
 import axios from "axios";
 import useAuth from "../../AuthProvider/useAuth";
 import useAxiosPublic from "../../components/hooks/useAxiosPublic";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   MapPin,
   Clock,
@@ -28,6 +28,9 @@ const PackageDetails = () => {
   const { user } = useAuth();
   const [date, setDate] = useState(null);
   const [selectedGuide, setSelectedGuide] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const dropdownRef = useRef(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
@@ -48,6 +51,17 @@ const PackageDetails = () => {
     },
   });
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   const handleBooking = async () => {
     if (!user) {
       return navigate("/login");
@@ -91,7 +105,7 @@ const PackageDetails = () => {
   };
   return (
     <div className="min-h-screen bg-base-100 py-8">
-      <div className="container mx-auto   ">
+      <div className="container mx-auto font-[Lora]  ">
         {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -235,7 +249,7 @@ const PackageDetails = () => {
               className="card dark:bg-base-200 shadow-xl"
             >
               <div className="card-body">
-                <h2 className="card-title text-2xl text-neutral mb-6">
+                <h2 className="card-title text-2xl  text-neutral mb-6">
                   Meet Our Tour Guides
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -243,7 +257,7 @@ const PackageDetails = () => {
                     <div
                       key={guide._id}
                       onClick={() => navigate(`/guide/${guide._id}`)}
-                      className="card bg-base-300  shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
+                      className="card  dark:bg-base-300  shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
                     >
                       <div className="card-body items-center text-center p-6">
                         <div className="avatar">
@@ -277,10 +291,10 @@ const PackageDetails = () => {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="card bg-white shadow-xl lg:sticky lg:top-8 w-full"
+              className="card bg-white dark:bg-base-200 font-[Lora] shadow-xl lg:sticky lg:top-28 w-full"
             >
               <div className="card-body px-4 sm:px-6 lg:px-8">
-                <h2 className="card-title text-2xl text-gray-900 mb-6">
+                <h2 className="card-title text-2xl font-[Bebas_Neue] tracking-widest text-neutral mb-6">
                   Book This Adventure
                 </h2>
 
@@ -294,7 +308,7 @@ const PackageDetails = () => {
                       type="text"
                       value={pkg.packageName || ""}
                       readOnly
-                      className="input input-bordered bg-gray-50 w-full"
+                      className="input focus:outline-none border-base-300 dark:bg-base-300 w-full"
                     />
                   </div>
 
@@ -310,7 +324,7 @@ const PackageDetails = () => {
                       type="text"
                       value={user?.displayName || ""}
                       readOnly
-                      className="input input-bordered bg-gray-50 w-full"
+                      className="input focus:outline-none border-base-300 dark:bg-base-300 w-full"
                     />
                   </div>
 
@@ -326,7 +340,7 @@ const PackageDetails = () => {
                       type="email"
                       value={user?.email || ""}
                       readOnly
-                      className="input input-bordered bg-gray-50 w-full"
+                      className="input focus:outline-none border-base-300 dark:bg-base-300 w-full"
                     />
                   </div>
 
@@ -342,14 +356,14 @@ const PackageDetails = () => {
                       type="text"
                       value={`${pkg.price}` || ""}
                       readOnly
-                      className="input input-bordered bg-gray-50 font-semibold w-full"
+                      className="input focus:outline-none border-base-300 dark:bg-base-300  font-semibold w-full"
                     />
                   </div>
 
                   {/* Tour Date */}
                   <div className="form-control">
                     <label className="label mr-2 flex">
-                      <span className="label-text font-medium flex items-center gap-2">
+                      <span className="label-text  font-medium flex items-center gap-2">
                         <Calendar className="w-4 h-4" />
                         Tour Date
                       </span>
@@ -358,36 +372,42 @@ const PackageDetails = () => {
                       selected={date}
                       onChange={(date) => setDate(date)}
                       placeholderText="Select your preferred date"
-                      className="input input-bordered w-full"
+                      className="input focus:outline-none border-base-300 dark:bg-base-300 w-full"
                       minDate={new Date()}
                     />
                   </div>
 
                   {/* Guide Selection */}
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text font-medium">
-                        Choose Your Guide
-                      </span>
-                    </label>
-                    <select
-                      className="select select-bordered w-full"
-                      value={selectedGuide}
-                      onChange={(e) => setSelectedGuide(e.target.value)}
+                  <div className="relative w-full" ref={dropdownRef}>
+                    <button
+                      className="select focus:outline-none border-base-300 dark:bg-base-300 w-full"
+                      onClick={() => setOpen(!open)}
                     >
-                      <option value="">Select a tour guide</option>
-                      {guides.map((guide) => (
-                        <option key={guide._id} value={guide.name}>
-                          {guide.name}
-                        </option>
-                      ))}
-                    </select>
+                      {selectedGuide || "Select a tour guide"}
+                    </button>
+
+                    {open && (
+                      <div className="absolute mt-2 w-full max-h-48 overflow-y-auto bg-white dark:bg-base-300 shadow rounded z-50">
+                        {guides.map((guide) => (
+                          <div
+                            key={guide._id}
+                            className="px-4 py-2 hover:bg-base-200 cursor-pointer"
+                            onClick={() => {
+                              setSelectedGuide(guide.name);
+                              setOpen(false);
+                            }}
+                          >
+                            {guide.name}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* Booking Button */}
                   <button
                     onClick={handleBooking}
-                    className="btn btn-primary btn-lg w-full mt-6 bg-gradient-to-r from-emerald-600 to-teal-600 border-none hover:from-emerald-700 hover:to-teal-700"
+                    className="btn btn-primary btn-lg w-full mt-6  text-white"
                     disabled={!date || !selectedGuide}
                   >
                     <CheckCircle className="w-5 h-5" />
@@ -399,31 +419,6 @@ const PackageDetails = () => {
                       Please select a date and guide to continue
                     </p>
                   )}
-                </div>
-
-                {/* Features */}
-                <div className="mt-8 pt-6 border-t border-gray-200">
-                  <h3 className="font-semibold text-gray-900 mb-3">
-                    What's Included
-                  </h3>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-emerald-600" />
-                      <span>Professional tour guide</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-emerald-600" />
-                      <span>Transportation</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-emerald-600" />
-                      <span>Meals as per itinerary</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-emerald-600" />
-                      <span>Entry fees to attractions</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </motion.div>

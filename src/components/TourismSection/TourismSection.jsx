@@ -89,7 +89,7 @@ const TourismSection = () => {
                       className="w-full h-56 object-cover rounded-t-xl"
                     />
                     <div className="p-6">
-                      <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+                      <span className="inline-block bg-success text-white  text-xs font-semibold px-3 py-1 rounded-full mb-3">
                         {pkg.location || "Bangladesh"}
                       </span>
                       <h4 className="text-xl font-bold text-gray-900 mb-2">
