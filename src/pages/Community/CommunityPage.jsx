@@ -55,7 +55,7 @@ const CommunityPage = () => {
 
   return (
     <div className="min-h-screen ">
-      <div className=" bg-emerald-500  rounded-b-2xl text-white">
+      <div className=" bg-primary dark:bg-base-200 rounded-b-2xl text-white">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -72,10 +72,10 @@ const CommunityPage = () => {
       <div className="container mx-auto px-4 py-12">
         {/* Stats Section */}
         <div className="flex flex-1  justify-center  gap-6 mb-8">
-          <div className="bg-white flex-1 rounded-xl p-6 text-center border border-gray-100">
-            <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+          <div className="bg-base-200 flex-1 rounded-xl p-6 text-center border border-base-300">
+            <div className="w-12 h-12 bg-primary/30 rounded-lg flex items-center justify-center mx-auto mb-3">
               <svg
-                className="w-6 h-6 text-emerald-600"
+                className="w-6 h-6 text-primary"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -88,16 +88,16 @@ const CommunityPage = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-gray-800">
+            <h3 className="text-2xl font-bold text-neutral">
               {stories.length}
             </h3>
-            <p className="text-gray-600">Total Stories</p>
+            <p className="text-neutral">Total Stories</p>
           </div>
 
-          <div className="bg-white flex-1 rounded-xl p-6 text-center border border-gray-100">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+          <div className="bg-base-200 flex-1 rounded-xl p-6 text-center border border-base-300">
+            <div className="w-12 h-12 bg-primary/30 rounded-lg flex items-center justify-center mx-auto mb-3">
               <svg
-                className="w-6 h-6 text-blue-600"
+                className="w-6 h-6 text-primary"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -110,10 +110,10 @@ const CommunityPage = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-gray-800">
+            <h3 className="text-2xl font-bold text-neutral">
               {new Set(stories.map((story) => story.author?.email)).size}
             </h3>
-            <p className="text-gray-600">Contributors</p>
+            <p className="text-neutral">Contributors</p>
           </div>
         </div>
       </div>

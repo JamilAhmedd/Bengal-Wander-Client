@@ -90,7 +90,7 @@ const TourismSection = () => {
                     />
                     <div className="p-6">
                       <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full mb-3">
-                        {pkg.destination || "Bangladesh"}
+                        {pkg.location || "Bangladesh"}
                       </span>
                       <h4 className="text-xl font-bold text-gray-900 mb-2">
                         {pkg.name}
@@ -99,7 +99,7 @@ const TourismSection = () => {
                         {pkg.description}
                       </p>
                       <div className="flex justify-between items-center">
-                        <span className="text-neutral slashed-zero tabular-nums font-bold text-base">
+                        <span className="text-neutral border-b-primary px-2 border-b-2 slashed-zero tabular-nums font-bold text-base">
                           ${pkg.price}
                         </span>
                         <button

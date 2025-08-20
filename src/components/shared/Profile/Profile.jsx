@@ -35,9 +35,9 @@ const Profile = () => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setDropdownOpen((prev) => !prev)}
-        className="btn  btn-ghost  btn-circle avatar"
+        className="btn  btn-ghost  btn-circle  avatar"
       >
-        <div className="w-16  rounded-full ring ring-offset-base-100 ring-offset-2">
+        <div className="w-16  rounded-full outline-1 outline-white">
           <img
             className="object-cover w-full h-full"
             src={user.photoURL}

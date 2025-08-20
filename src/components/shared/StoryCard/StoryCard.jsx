@@ -17,7 +17,7 @@ const StoryCard = ({ story }) => {
   const shareTitle = story.title;
 
   return (
-    <div className=" rounded-2xl  hover:scale-101 bg-white shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300">
+    <div className=" rounded-2xl  hover:scale-101 bg-base-200 shadow-sm border border-base-300 overflow-hidden hover:shadow-md transition-all duration-300">
       <div className="  h-48 overflow-hidden">
         <img
           src={story.images[0]}
@@ -40,11 +40,13 @@ const StoryCard = ({ story }) => {
           </div>
         </div>
 
-        <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
+        <h3 className="text-2xl font-[Bebas_Neue]  tracking-wide font-bold text-neutral mb-3 line-clamp-2">
           {story.title}
         </h3>
 
-        <p className="text-gray-600 mb-4 line-clamp-3">{story.content}</p>
+        <p className="text-neutral mb-4 line-clamp-3 font-[Lora] font-bold">
+          {story.content}
+        </p>
 
         <div className="flex items-center justify-between pt-4 border-t border-gray-100">
           <div className="flex items-center space-x-2">
@@ -80,7 +82,10 @@ const StoryCard = ({ story }) => {
               />
             </WhatsappShareButton>
           </div>
-          <a className="btn btn-success" href={`/stories/${story._id}`}>
+          <a
+            className="btn text-white btn-primary font-[Lora] font-bold hover:btn-secondary"
+            href={`/stories/${story._id}`}
+          >
             View
           </a>
         </div>
