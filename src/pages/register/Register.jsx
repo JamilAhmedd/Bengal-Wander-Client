@@ -36,9 +36,7 @@ const Register = () => {
         displayName: data.name,
         photoURL: profile,
       };
-      await userUpdate(userToUpdate, updatedProfile).then((res) => {
-       
-      });
+      await userUpdate(userToUpdate, updatedProfile).then((res) => {});
       navigate(from, { replace: true });
       await getJWT(res.user);
       Swal.fire({
@@ -80,9 +78,9 @@ const Register = () => {
         title: "Image Upload Failed",
         text: "Could not upload profile picture. Please try again.",
       });
-      setProfile(""); 
+      setProfile("");
     } finally {
-      setIsUploadingImage(false); 
+      setIsUploadingImage(false);
     }
   };
 
@@ -200,7 +198,7 @@ const Register = () => {
         <button
           disabled={isUploadingImage}
           type="submit"
-          className="w-full cursor-pointer py-3 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold rounded-lg shadow-lg transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-400 focus:ring-opacity-75 transition duration-300 ease-in-out"
+          className="w-full cursor-pointer py-3 px-4 bg-primary hover:bg-secondary text-white font-bold rounded-lg shadow-lg transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-400 focus:ring-opacity-75 transition duration-300 ease-in-out"
         >
           {isUploadingImage ? (
             <span className="loading loading-dots loading-xl"></span>

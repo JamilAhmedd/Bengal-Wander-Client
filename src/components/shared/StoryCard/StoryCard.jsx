@@ -17,16 +17,18 @@ const StoryCard = ({ story }) => {
   const shareTitle = story.title;
 
   return (
-    <div className=" rounded-2xl  hover:scale-101 bg-base-200 shadow-sm border border-base-300 overflow-hidden hover:shadow-md transition-all duration-300">
-      <div className="  h-48 overflow-hidden">
+    <div className="rounded-2xl hover:scale-101 bg-base-200 shadow-sm border border-base-300 overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col">
+      {/* Image */}
+      <div className="h-48 overflow-hidden">
         <img
           src={story.images[0]}
           alt={story.title}
-          className="w-full h-full object-cover  transition-transform duration-300"
+          className="w-full h-full object-cover transition-transform duration-300"
         />
       </div>
 
-      <div className="p-6">
+      {/* Content */}
+      <div className="p-6 flex flex-col flex-grow">
         <div className="flex items-center space-x-3 mb-4">
           <div>
             <h4 className="font-medium text-gray-800">{story.authorName}</h4>
@@ -40,15 +42,16 @@ const StoryCard = ({ story }) => {
           </div>
         </div>
 
-        <h3 className="text-2xl font-[Bebas_Neue]  tracking-wide font-bold text-neutral mb-3 line-clamp-2">
+        <h3 className="text-2xl font-bebas tracking-wide font-bold text-neutral mb-3 line-clamp-2">
           {story.title}
         </h3>
 
-        <p className="text-neutral mb-4 line-clamp-3 font-[Lora] font-bold">
+        <p className="text-neutral mb-4 line-clamp-3 font-lora font-bold">
           {story.content}
         </p>
 
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+        {/* Footer (sticks to bottom) */}
+        <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
           <div className="flex items-center space-x-2">
             <FacebookShareButton url={shareUrl} quote={shareTitle}>
               <FacebookIcon
@@ -82,8 +85,9 @@ const StoryCard = ({ story }) => {
               />
             </WhatsappShareButton>
           </div>
+
           <a
-            className="btn shadow-none text-white btn-primary font-[Lora] font-bold hover:btn-secondary"
+            className="btn shadow-none text-white btn-primary font-lora font-bold hover:btn-secondary"
             href={`/stories/${story._id}`}
           >
             View

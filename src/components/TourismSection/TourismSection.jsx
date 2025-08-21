@@ -38,7 +38,7 @@ const TourismSection = () => {
   return (
     <section className="py-12 mt-36 font-poppins">
       <div className="container  mx-auto">
-        <h2 className="text-5xl font-[Bebas_Neue] font-extrabold text-center text-primary mb-12">
+        <h2 className="text-5xl font-bebas font-extrabold text-center text-primary mb-12">
           Discover Bangladesh
         </h2>
 
@@ -47,12 +47,12 @@ const TourismSection = () => {
           className="rounded-xl border border-gray-400/30 bg-base-200"
         >
           <TabList className="flex p-4 space-x-2 rounded-xl border-b  border-gray-200/60">
-            <Tab className="flex-1 font-[Lora] rounded-xl  focus:outline-0 text-center py-4 px-6 cursor-pointer text-lg font-semibold transition-all hover:bg-base-300 duration-300    ">
+            <Tab className="flex-1 font-lora rounded-xl  focus:outline-0 text-center py-4 px-6 cursor-pointer text-lg font-semibold transition-all hover:bg-base-300 duration-300    ">
               Our Packages
             </Tab>
             <Tab
               className={
-                "flex-1 rounded-xl font-[Lora]  focus:outline-0 text-center py-4 px-6 cursor-pointer text-lg font-semibold transition-all duration-300 hover:bg-base-300   "
+                "flex-1 rounded-xl font-lora  focus:outline-0 text-center py-4 px-6 cursor-pointer text-lg font-semibold transition-all duration-300 hover:bg-base-300   "
               }
             >
               Our Guides
@@ -60,7 +60,7 @@ const TourismSection = () => {
           </TabList>
 
           <TabPanel className="p-8">
-            <h3 className="text-3xl font-bold font-[Bebas_Neue]  text-accent mb-6 mt-20 text-center">
+            <h3 className="text-3xl font-bold font-bebas  text-accent mb-6 mt-20 text-center">
               Explore Our Travel Packages
             </h3>
 

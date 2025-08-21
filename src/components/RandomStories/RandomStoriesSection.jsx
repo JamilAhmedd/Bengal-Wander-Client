@@ -181,7 +181,7 @@ const RandomStoriesSection = () => {
                       <span className="text-xs text-gray-500">Share:</span>
                       <button
                         onClick={() => handleShare(story._id)}
-                        className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
+                        className="text-xs text-primary hover:text-secondary  "
                         title="Login to share"
                       >
                         Login to share

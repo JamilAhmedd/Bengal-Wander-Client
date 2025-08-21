@@ -63,7 +63,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center ">
           <img className="size-18" src={logo} alt="" />
-          <div className="text-3xl font-bold text-white   font-[Bebas_Neue] tracking-wider">
+          <div className="text-3xl font-bold text-white   font-bebas tracking-wider">
             Bengal Wander
           </div>
         </div>

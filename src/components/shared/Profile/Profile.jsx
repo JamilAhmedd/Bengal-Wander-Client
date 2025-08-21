@@ -52,7 +52,7 @@ const Profile = () => {
           <li className="px-3 py-2 border-b">
             <p className="text-sm font-semibold text-neutral">
               {user.displayName}
-            </p>
+          </p>
             <p className="text-xs text-neutral">{user.email}</p>
           </li>
           <li className="mt-4">

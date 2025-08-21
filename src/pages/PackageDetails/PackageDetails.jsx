@@ -105,7 +105,7 @@ const PackageDetails = () => {
   };
   return (
     <div className="min-h-screen bg-base-100 py-8">
-      <div className="container mx-auto font-[Lora]  ">
+      <div className="container mx-auto font-lora  ">
         {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -228,10 +228,10 @@ const PackageDetails = () => {
                         </div>
                       </div>
                       <div>
-                        <p className=" font-[Lora] text-lg tracking-wider font-bold  text-neutral mb-1">
+                        <p className=" font-lora text-lg tracking-wider font-bold  text-neutral mb-1">
                           {item.day}
                         </p>
-                        <p className="text-neutral/80 font-[Lora] tracking-wide font-semibold">
+                        <p className="text-neutral/80 font-lora tracking-wide font-semibold">
                           {item.activities}
                         </p>
                       </div>
@@ -269,7 +269,7 @@ const PackageDetails = () => {
                             />
                           </div>
                         </div>
-                        <h3 className="card-title text-lg text-neutral font-[Lora] capitalize tracking-widest] mt-3">
+                        <h3 className="card-title text-lg text-neutral font-lora capitalize tracking-widest] mt-3">
                           {guide.name}
                         </h3>
                         <div className="flex items-center gap-1 text-yellow-500">
@@ -291,10 +291,10 @@ const PackageDetails = () => {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="card bg-white dark:bg-base-200 font-[Lora] shadow-xl lg:sticky lg:top-28 w-full"
+              className="card bg-white dark:bg-base-200 font-lora shadow-xl lg:sticky lg:top-28 w-full"
             >
               <div className="card-body px-4 sm:px-6 lg:px-8">
-                <h2 className="card-title text-2xl font-[Bebas_Neue] tracking-widest text-neutral mb-6">
+                <h2 className="card-title text-2xl font-bebas tracking-widest text-neutral mb-6">
                   Book This Adventure
                 </h2>
 

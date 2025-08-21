@@ -4,7 +4,7 @@ import React from "react";
 const OverviewSection = () => {
   return (
     <div className="my-36">
-      <h1 className="font-extrabold text-primary font-[Bebas_Neue] text-5xl font-poppins text-center mb-12">
+      <h1 className="font-extrabold text-primary font-bebas text-5xl font-poppins text-center mb-12">
         We Are Bengal Wander
       </h1>
       <section className="bg-base-200 border border-base-300 rounded-xl py-16 px-4 md:px-10 lg:px-20  ">
@@ -24,16 +24,16 @@ const OverviewSection = () => {
 
           {/* Text */}
           <div className="flex-1">
-            <h2 className="text-3xl text-primary font-[Bebas_Neue] md:text-4xl font-bold text-deep mb-4 ">
+            <h2 className="text-3xl text-primary font-bebas md:text-4xl font-bold text-deep mb-4 ">
               Discover the Beauty of Bangladesh
             </h2>
-            <p className="font-[Lora] font-semibold text-lg mb-6 leading-relaxed text-neutral">
+            <p className="font-lora font-semibold text-lg mb-6 leading-relaxed text-neutral">
               Our platform connects you with the most breathtaking destinations,
               curated tour packages, and experienced local guides. Whether
               you're seeking coastal serenity, lush hills, or cultural heritage,
               we help you explore Bangladesh like never before.
             </p>
-            <button className="bg-primary font-[Lora] font-bold text-white px-6 py-3 rounded-full hover:bg-secondary transition duration-300">
+            <button className="bg-primary font-bold text-white px-6 py-3 rounded-full hover:bg-secondary transition duration-300">
               Start Exploring
             </button>
           </div>

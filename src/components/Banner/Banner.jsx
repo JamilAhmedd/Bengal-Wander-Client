@@ -76,7 +76,7 @@ const Banner = () => {
               <Link to={slide.link}>
                 <button
                   onClick={() => handleButtonClick(slide.id)}
-                  className="px-6 py-2 bg-primary text-white rounded-full hover:bg-secondary transition duration-300"
+                  className="px-6 py-2 bg-primary  text-white rounded-full hover:bg-secondary transition duration-300"
                 >
                   {slide.buttonText}
                 </button>
